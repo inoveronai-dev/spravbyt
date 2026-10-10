@@ -1,14 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
-/** Client-only year to satisfy Next.js cache-components prerender rules. */
+function subscribe() {
+  return () => {};
+}
+
+function getClientYear() {
+  return new Date().getFullYear();
+}
+
+function getServerYear() {
+  return 2026;
+}
+
+/** Dynamic year without blocking Next.js cache-components prerender. */
 export function CopyrightYear() {
-  const [year, setYear] = useState(2026);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
-
+  const year = useSyncExternalStore(subscribe, getClientYear, getServerYear);
   return <>{year}</>;
 }

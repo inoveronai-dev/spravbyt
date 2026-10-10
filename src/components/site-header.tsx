@@ -2,28 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { ChevronDown, Menu } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "cn";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import {
   externalUrls,
   infoNav,
-  primaryNav,
   site,
   type NavItem,
 } from "@/lib/content";
@@ -32,40 +17,22 @@ function isPending(item: NavItem): item is Extract<NavItem, { pending: true }> {
   return "pending" in item && item.pending === true;
 }
 
-function NavLink({
+function ExternalOrAnchor({
   item,
   className,
   onNavigate,
 }: {
-  item: NavItem;
+  item: Exclude<NavItem, { pending: true }>;
   className?: string;
   onNavigate?: () => void;
 }) {
-  if (isPending(item)) {
-    return (
-      <span
-        className={cn(
-          "inline-flex items-center gap-2 text-white/45",
-          className
-        )}
-        title={item.note}
-        aria-disabled="true"
-      >
-        {item.label}
-        <span className="rounded-sm border border-white/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
-          Čoskoro
-        </span>
-      </span>
-    );
-  }
-
   if (item.external) {
     return (
       <a
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={cn("transition-colors hover:text-brand", className)}
+        className={className}
         onClick={onNavigate}
       >
         {item.label}
@@ -74,11 +41,7 @@ function NavLink({
   }
 
   return (
-    <Link
-      href={item.href}
-      className={cn("transition-colors hover:text-brand", className)}
-      onClick={onNavigate}
-    >
+    <Link href={item.href} className={className} onClick={onNavigate}>
       {item.label}
     </Link>
   );
@@ -86,7 +49,10 @@ function NavLink({
 
 export function SiteHeader() {
   const [compact, setCompact] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
+  const infoRef = useRef<HTMLDivElement>(null);
+  const infoMenuId = useId();
 
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 24);
@@ -94,6 +60,46 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!infoOpen) return;
+
+    const onPointerDown = (event: MouseEvent) => {
+      if (!infoRef.current?.contains(event.target as Node)) {
+        setInfoOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setInfoOpen(false);
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [infoOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const mobileItems: NavItem[] = [
+    { label: "Úvod", href: "/#uvod" },
+    { label: "O nás", href: externalUrls.oNas, external: true },
+    ...infoNav,
+    {
+      label: "Online vstup",
+      href: externalUrls.onlineVstup,
+      external: true,
+      emphasize: true,
+    },
+    { label: "Kontakt", href: "/#kontakt" },
+  ];
 
   return (
     <header
@@ -126,56 +132,77 @@ export function SiteHeader() {
           className="hidden items-center gap-1 xl:flex"
           aria-label="Hlavná navigácia"
         >
-          {primaryNav.slice(0, 2).map((item) => (
-            <NavLink
-              key={item.label}
-              item={item}
-              className="rounded-md px-3 py-2 text-sm font-medium text-white/85"
-            />
-          ))}
+          <Link
+            href="/#uvod"
+            className="rounded-md px-3 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand"
+          >
+            Úvod
+          </Link>
+          <a
+            href={externalUrls.oNas}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md px-3 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand"
+          >
+            O nás
+          </a>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              className={cn(
-                "inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/85 outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-brand/60"
-              )}
+          <div className="relative" ref={infoRef}>
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/85 outline-none transition-colors hover:text-brand focus-visible:ring-2 focus-visible:ring-brand/60"
+              aria-haspopup="menu"
+              aria-expanded={infoOpen}
+              aria-controls={infoMenuId}
+              onClick={() => setInfoOpen((value) => !value)}
             >
               Informácie
-              <ChevronDown className="size-4 opacity-70" aria-hidden />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="start"
-              className="min-w-56 border-border bg-surface text-foreground"
-            >
-              {infoNav.map((item) =>
-                isPending(item) ? (
-                  <DropdownMenuItem
-                    key={item.label}
-                    disabled
-                    className="justify-between opacity-60"
-                  >
-                    <span>{item.label}</span>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
-                      Čoskoro
-                    </span>
-                  </DropdownMenuItem>
-                ) : (
-                  <DropdownMenuItem
-                    key={item.label}
-                    render={
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      />
-                    }
-                  >
-                    {item.label}
-                  </DropdownMenuItem>
-                )
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <ChevronDown
+                className={cn(
+                  "size-4 opacity-70 transition-transform",
+                  infoOpen && "rotate-180"
+                )}
+                aria-hidden
+              />
+            </button>
+
+            {infoOpen ? (
+              <div
+                id={infoMenuId}
+                role="menu"
+                className="absolute left-0 top-[calc(100%+0.5rem)] z-50 min-w-56 rounded-md border border-border bg-surface p-1.5 text-foreground shadow-lg"
+              >
+                {infoNav.map((item) =>
+                  isPending(item) ? (
+                    <div
+                      key={item.label}
+                      role="menuitem"
+                      aria-disabled="true"
+                      className="flex items-center justify-between rounded-md px-3 py-2 text-sm text-ink-muted"
+                      title={item.note}
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider">
+                        Čoskoro
+                      </span>
+                    </div>
+                  ) : (
+                    <a
+                      key={item.label}
+                      role="menuitem"
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block rounded-md px-3 py-2 text-sm text-charcoal transition-colors hover:bg-brand-soft"
+                      onClick={() => setInfoOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  )
+                )}
+              </div>
+            ) : null}
+          </div>
 
           <a
             href={externalUrls.onlineVstup}
@@ -186,10 +213,12 @@ export function SiteHeader() {
             Online vstup
           </a>
 
-          <NavLink
-            item={{ label: "Kontakt", href: "/#kontakt" }}
-            className="rounded-md px-3 py-2 text-sm font-medium text-white/85"
-          />
+          <Link
+            href="/#kontakt"
+            className="rounded-md px-3 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand"
+          >
+            Kontakt
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2 xl:hidden">
@@ -202,86 +231,81 @@ export function SiteHeader() {
             Online vstup
           </a>
 
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="size-11 text-white hover:bg-white/10 hover:text-white"
-                  aria-label="Otvoriť menu"
-                />
-              }
-            >
-              <Menu className="size-5" />
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-[min(100%,22rem)] border-l border-white/10 bg-charcoal text-white"
-            >
-              <SheetHeader className="border-b border-white/10 pb-4 text-left">
-                <SheetTitle className="font-heading text-lg text-white">
-                  Menu
-                </SheetTitle>
-              </SheetHeader>
-
-              <nav
-                className="flex flex-col gap-1 px-2 py-4"
-                aria-label="Mobilná navigácia"
-              >
-                {[
-                  { label: "Úvod", href: "/#uvod" },
-                  {
-                    label: "O nás",
-                    href: externalUrls.oNas,
-                    external: true,
-                  },
-                  ...infoNav,
-                  {
-                    label: "Online vstup",
-                    href: externalUrls.onlineVstup,
-                    external: true,
-                    emphasize: true,
-                  },
-                  { label: "Kontakt", href: "/#kontakt" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className={cn(
-                      "rounded-md px-3 py-3 text-base font-medium",
-                      !isPending(item) &&
-                        "emphasize" in item &&
-                        item.emphasize &&
-                        "bg-brand/15 text-brand"
-                    )}
-                  >
-                    <NavLink
-                      item={item as NavItem}
-                      className="block w-full"
-                      onNavigate={() => setOpen(false)}
-                    />
-                  </div>
-                ))}
-              </nav>
-
-              <div className="mt-auto border-t border-white/10 px-5 py-5 text-sm text-white/70">
-                <a
-                  href={site.phoneHref}
-                  className="block font-medium text-white transition-colors hover:text-brand"
-                >
-                  {site.phoneDisplay}
-                </a>
-                <a
-                  href={site.emailHref}
-                  className="mt-2 block transition-colors hover:text-brand"
-                >
-                  {site.email}
-                </a>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <button
+            type="button"
+            className="inline-flex size-11 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10"
+            aria-label={mobileOpen ? "Zavrieť menu" : "Otvoriť menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMobileOpen((value) => !value)}
+          >
+            {mobileOpen ? (
+              <X className="size-5" aria-hidden />
+            ) : (
+              <Menu className="size-5" aria-hidden />
+            )}
+          </button>
         </div>
       </div>
+
+      {mobileOpen ? (
+        <div
+          id="mobile-nav"
+          className="border-t border-white/10 bg-charcoal xl:hidden"
+        >
+          <nav
+            className="container-page flex max-h-[min(70vh,32rem)] flex-col gap-1 overflow-y-auto py-4"
+            aria-label="Mobilná navigácia"
+          >
+            {mobileItems.map((item) => {
+              if (isPending(item)) {
+                return (
+                  <span
+                    key={item.label}
+                    className="flex items-center justify-between rounded-md px-3 py-3 text-base font-medium text-white/45"
+                    title={item.note}
+                    aria-disabled="true"
+                  >
+                    {item.label}
+                    <span className="rounded-sm border border-white/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
+                      Čoskoro
+                    </span>
+                  </span>
+                );
+              }
+
+              return (
+                <ExternalOrAnchor
+                  key={item.label}
+                  item={item}
+                  onNavigate={() => setMobileOpen(false)}
+                  className={cn(
+                    "rounded-md px-3 py-3 text-base font-medium transition-colors",
+                    item.emphasize
+                      ? "bg-brand/15 text-brand"
+                      : "text-white/90 hover:bg-white/5 hover:text-brand"
+                  )}
+                />
+              );
+            })}
+          </nav>
+
+          <div className="container-page border-t border-white/10 py-4 text-sm text-white/70">
+            <a
+              href={site.phoneHref}
+              className="block font-medium text-white transition-colors hover:text-brand"
+            >
+              {site.phoneDisplay}
+            </a>
+            <a
+              href={site.emailHref}
+              className="mt-2 block transition-colors hover:text-brand"
+            >
+              {site.email}
+            </a>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }
