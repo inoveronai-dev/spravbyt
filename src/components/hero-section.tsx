@@ -1,60 +1,68 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { ArchitecturalVisual } from "@/components/architectural-visual";
 import { hero } from "@/lib/content";
 
 export function HeroSection() {
   return (
     <section
       id="uvod"
-      className="relative overflow-hidden border-b border-border bg-background"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-charcoal"
       aria-labelledby="hero-heading"
     >
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          src="/banska-bystrica-hero.png"
+          alt="Námestie SNP v Banskej Bystrici pri západe slnka"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-photo-zoom object-cover object-[center_42%] sm:object-center"
+        />
+      </div>
+
+      {/* Layered readability overlay — keep sunset and architecture visible */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 12% 18%, rgba(160,196,59,0.14), transparent 34%), radial-gradient(circle at 88% 0%, rgba(52,59,54,0.08), transparent 28%)",
+          background: `
+            linear-gradient(180deg, rgba(32,37,34,0.42) 0%, rgba(32,37,34,0.18) 28%, rgba(32,37,34,0.34) 52%, rgba(32,37,34,0.62) 78%, rgba(32,37,34,0.78) 100%),
+            radial-gradient(ellipse 70% 55% at 50% 58%, rgba(32,37,34,0.45), transparent 70%)
+          `,
         }}
       />
 
-      <div className="container-page relative grid items-center gap-10 py-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:py-20 xl:gap-20">
-        <div className="max-w-xl xl:max-w-2xl">
-          <p className="hero-enter-heading eyebrow text-charcoal-soft">
-            {hero.eyebrow}
-          </p>
+      <div className="container-page relative z-10 flex w-full flex-col items-center px-5 pb-16 pt-28 text-center sm:pb-20 sm:pt-32">
+        <p className="hero-enter-label text-xs font-semibold tracking-[0.16em] text-white/80 sm:text-[0.8rem]">
+          {hero.eyebrow}
+        </p>
 
-          <h1
-            id="hero-heading"
-            className="hero-enter-heading mt-5 font-heading text-[clamp(2.15rem,4.6vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-charcoal"
+        <h1
+          id="hero-heading"
+          className="hero-enter-heading mt-5 max-w-[16ch] font-heading text-[clamp(2rem,5.4vw,4.25rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:max-w-[18ch]"
+        >
+          Správa bytových domov,
+          <br className="hidden sm:block" />{" "}
+          na ktorú sa môžete spoľahnúť.
+        </h1>
+
+        <p className="hero-enter-body mt-5 max-w-xl text-base leading-relaxed text-white/82 sm:mt-6 sm:text-lg">
+          {hero.supporting}
+        </p>
+
+        <div className="hero-enter-cta mt-8 flex w-full max-w-md flex-col gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:justify-center">
+          <Link
+            href={hero.primaryCta.href}
+            className="inline-flex h-12 items-center justify-center rounded-md bg-brand px-7 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032]"
           >
-            {hero.headingBefore}
-            <span className="text-brand">{hero.headingEmphasis}</span>
-            {hero.headingAfter}
-          </h1>
-
-          <p className="hero-enter-body mt-6 max-w-lg text-base leading-relaxed text-ink-muted sm:text-lg">
-            {hero.supporting}
-          </p>
-
-          <div className="hero-enter-cta mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href={hero.primaryCta.href}
-              className="inline-flex h-12 items-center justify-center rounded-md bg-charcoal px-6 text-sm font-semibold text-white transition-colors hover:bg-charcoal-soft"
-            >
-              {hero.primaryCta.label}
-            </Link>
-            <Link
-              href={hero.secondaryCta.href}
-              className="inline-flex h-12 items-center justify-center rounded-md border border-border bg-surface px-6 text-sm font-semibold text-charcoal transition-colors hover:border-charcoal/25 hover:bg-brand-soft"
-            >
-              {hero.secondaryCta.label}
-            </Link>
-          </div>
-        </div>
-
-        <div className="hero-enter-media relative lg:justify-self-end lg:w-full lg:max-w-[34rem]">
-          <ArchitecturalVisual label={hero.locationLabel} variant="hero" />
+            {hero.primaryCta.label}
+          </Link>
+          <Link
+            href={hero.secondaryCta.href}
+            className="inline-flex h-12 items-center justify-center rounded-md border border-white/35 bg-white/8 px-7 text-sm font-semibold text-white backdrop-blur-[2px] transition-colors hover:border-white/55 hover:bg-white/14"
+          >
+            {hero.secondaryCta.label}
+          </Link>
         </div>
       </div>
     </section>

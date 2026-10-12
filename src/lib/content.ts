@@ -84,10 +84,11 @@ export const hero = {
   headingEmphasis: "na ktorú sa môžete spoľahnúť",
   headingAfter: ".",
   supporting:
-    "Od roku 1996 poskytujeme služby v oblasti správy bytových a nebytových priestorov v Banskej Bystrici a okolí.",
+    "Od roku 1996 poskytujeme služby správy nehnuteľností v Banskej Bystrici a okolí.",
   primaryCta: { label: "Kontaktujte nás", href: "#kontakt" },
   secondaryCta: { label: "Naše služby", href: "#sluzby" },
   locationLabel: "Banská Bystrica a okolie",
+  imageSrc: "/banska-bystrica-hero.png",
 } as const;
 
 export const trust = {

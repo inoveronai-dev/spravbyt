@@ -49,16 +49,30 @@ function ExternalOrAnchor({
 
 export function SiteHeader() {
   const [compact, setCompact] = useState(false);
+  const [overHero, setOverHero] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const infoRef = useRef<HTMLDivElement>(null);
   const infoMenuId = useId();
+  const solidHeader = !overHero || mobileOpen;
 
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const hero = document.getElementById("uvod");
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setOverHero(entry.isIntersecting),
+      { threshold: 0.35 }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -104,8 +118,10 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-white/8 bg-charcoal text-white transition-[padding,box-shadow] duration-300",
-        compact ? "shadow-[0_8px_30px_rgba(32,37,34,0.28)]" : "shadow-none"
+        "fixed inset-x-0 top-0 z-50 text-white transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
+        solidHeader
+          ? "border-b border-white/8 bg-charcoal shadow-[0_8px_30px_rgba(32,37,34,0.28)]"
+          : "border-b border-transparent bg-transparent shadow-none"
       )}
     >
       <div
