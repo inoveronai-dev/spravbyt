@@ -2,7 +2,22 @@ import { ArrowUpRight } from "lucide-react";
 
 import { MediaSlot } from "@/components/media-slot";
 import { Reveal } from "@/components/reveal";
-import { about } from "@/lib/content";
+import { about, portfolioFromONas } from "@/lib/content";
+
+const metrics = [
+  {
+    value: portfolioFromONas.objectsLabel,
+    label: portfolioFromONas.objectsCaption,
+  },
+  {
+    value: portfolioFromONas.flatsLabel,
+    label: portfolioFromONas.flatsCaption,
+  },
+  {
+    value: portfolioFromONas.nonResidentialLabel,
+    label: portfolioFromONas.nonResidentialCaption,
+  },
+] as const;
 
 export function AboutSection() {
   return (
@@ -12,7 +27,7 @@ export function AboutSection() {
       aria-labelledby="about-heading"
     >
       <div className="container-page section-space">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div>
             <Reveal>
               <p className="eyebrow">{about.eyebrow}</p>
@@ -22,15 +37,42 @@ export function AboutSection() {
               >
                 {about.heading}
               </h2>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
+                {about.intro}
+              </p>
             </Reveal>
 
-            <div className="mt-6 max-w-xl space-y-4 text-base leading-relaxed text-ink-muted sm:text-lg">
-              {about.paragraphs.map((paragraph) => (
-                <Reveal key={paragraph.slice(0, 28)}>
-                  <p>{paragraph}</p>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal delay={1}>
+              <div className="mt-8 grid grid-cols-3 gap-3 border-y border-border py-6 sm:gap-6">
+                {metrics.map((metric) => (
+                  <div key={metric.label}>
+                    <p className="font-heading text-[clamp(1.6rem,3vw,2.4rem)] font-semibold tracking-tight text-brand">
+                      {metric.value}
+                    </p>
+                    <p className="mt-1 text-xs leading-snug text-ink-muted sm:text-sm">
+                      {metric.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delay={2}>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-muted">
+                <p>
+                  <span className="font-semibold text-charcoal">Založená</span>{" "}
+                  {portfolioFromONas.foundedDate}
+                </p>
+                <p>
+                  <span className="font-semibold text-charcoal">Pôsobnosť</span>{" "}
+                  {portfolioFromONas.area}
+                </p>
+              </div>
+              <p className="mt-4 max-w-xl border-l-2 border-brand pl-4 text-sm leading-relaxed text-charcoal sm:text-base">
+                <span className="font-semibold">{about.prioritiesLabel}: </span>
+                {about.priorities}
+              </p>
+            </Reveal>
 
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
               {about.methods.map((method, index) => (

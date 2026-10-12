@@ -34,17 +34,73 @@ export const externalUrls = {
 } as const;
 
 /**
- * CLIENT VERIFY — Conflicting portfolio figures exist across company pages.
- * Homepage historically listed: >91 objects, >3 200 flats, 187 non-residential.
- * O nás page lists: >127 objects, >3 992 flats, 265 non-residential.
- * Do not display these as verified trust metrics until the client confirms.
+ * Portfolio figures shown on the homepage come from the live "O nás" page.
+ * Older homepage copy listed different numbers (91 / 3 200 / 187) — keep for audit.
  */
+export const portfolioFromONas = {
+  foundedDate: "18. 3. 1996",
+  objectsLabel: "127+",
+  objectsCaption: "spravovaných objektov",
+  flatsLabel: "3 992+",
+  flatsCaption: "bytov",
+  nonResidentialLabel: "265",
+  nonResidentialCaption: "nebytových priestorov",
+  area: "Banská Bystrica a okolie",
+  priorities: "presnosť, spoľahlivosť, ústretovosť a prístupnosť",
+  communities: 30,
+} as const;
+
 export const unverifiedPortfolioStats = {
   objects: 91,
   flats: 3200,
   nonResidential: 187,
-  source: "original homepage copy — requires client verification",
+  source: "original homepage copy — superseded on homepage by O nás figures",
 } as const;
+
+/** Short announcement teasers for the homepage ticker. Full pages remain on spravbyt.sk. */
+export const announcements = [
+  {
+    id: "havarijna-2025",
+    title: "Zmena poskytovateľa havarijnej služby",
+    excerpt:
+      "Od 01.12.2025 je novým poskytovateľom havarijnej služby Chaban HSU, s.r.o.",
+    body: "S účinnosťou od 01.12.2025 sa mení poskytovateľ havarijnej služby zo spoločnosti UHS Hazucha, ktorá ukončila svoju činnosť, na spoločnosť Chaban HSU, s.r.o. so sídlom Tajov 12, 976 34 Tajov.\n\nTelefonický kontakt na nového poskytovateľa havarijnej služby: 0903 530 977.\n\nV prípade porúch je potrebné sa obracať už na nového poskytovateľa havarijnej služby.",
+    dateLabel: "Od 01.12.2025",
+  },
+  {
+    id: "dph-2025",
+    title: "Úprava DPH v položke správa",
+    excerpt:
+      "Od 01.01.2025 sa v položke správa zohľadňuje sadzba DPH 23 %.",
+    body: "S účinnosťou od 01.01.2025 nadobudla platnosť novela zákona č. 222/2004 o dani z pridanej hodnoty. Výška sadzby DPH sa mení z 20 % na 23 %.\n\nVlastníkom bytov a nebytových priestorov je v položke správa zohľadnená nová výška DPH. Keďže úprava poplatku je len o niekoľko centov mesačne, nové evidenčné listy z tohto dôvodu neboli zasielané.",
+    dateLabel: "Od 01.01.2025",
+  },
+  {
+    id: "strankove-dni",
+    title: "Stránkové dni pre vlastníkov",
+    excerpt:
+      "Pondelok 8:00–12:00 a streda 8:00–12:00 a 13:00–16:00.",
+    body: "Stránkové dni sú v pondelok od 8:00 do 12:00 a v stredu od 8:00 do 12:00 a od 13:00 do 16:00.\n\nOdporúčame vlastníkom prednostne využívať vybavovanie požiadaviek prostredníctvom e-mailu alebo telefónu.",
+    dateLabel: "Aktuálne",
+  },
+  {
+    id: "sidlo",
+    title: "Prevádzka na Dlhej ulici",
+    excerpt:
+      "Sídlo spoločnosti: Dlhá ulica 2039/2, 974 05 Banská Bystrica.",
+    body: "Prevádzka spoločnosti SPRAVBYT s.r.o. sa nachádza na adrese Dlhá ulica 2039/2, 974 05 Banská Bystrica (pri Kauflande v Radvani).",
+    dateLabel: "Sídlo",
+  },
+  {
+    id: "aktuality-archiv",
+    title: "Ďalšie aktuality a archív oznámení",
+    excerpt:
+      "Kompletný prehľad oznámení nájdete na pôvodnej stránke Aktuality.",
+    body: "Na homepage uvádzame len vybrané, aktuálne oznamy v skrátenej podobe. Staršie a dlhšie oznámenia zostávajú dostupné na pôvodnej stránke Aktuality.",
+    dateLabel: "Archív",
+    externalHref: "https://spravbyt.sk/aktuality/",
+  },
+] as const;
 
 export type NavItem =
   | {
@@ -108,21 +164,33 @@ export const services = {
       title: "Výkon správy",
       description: "Výkon správy zabezpečuje správca vlastnými kapacitami.",
       href: externalUrls.serviceVykon,
-      icon: "building" as const,
+      details: [
+        "Prevádzku, opravy a údržbu spoločných častí zabezpečujeme dodávateľsky v mene a na účet vlastníkov.",
+        "Pri obstarávaní služieb dojednávame čo najvýhodnejšie podmienky v prospech vlastníkov.",
+        "Domový výbor alebo vchodoví zástupcovia prenášajú požiadavky vlastníkov a kontrolujú hospodárenie.",
+      ],
     },
     {
       number: "02",
       title: "Ekonomický úsek",
       description: "Ekonomická agenda súvisiaca so správou bytových domov.",
       href: externalUrls.serviceEkonomicky,
-      icon: "calculator" as const,
+      details: [
+        "Evidencia zálohových platieb a vystavovanie evidenčných listov.",
+        "Štvrťročné prehľady o tvorbe, čerpaní a zostatku FPOU.",
+        "Ročné vyúčtovanie a správa o hospodárení domu.",
+      ],
     },
     {
       number: "03",
       title: "Technický úsek",
       description: "Pravidelná kontrola prevádzky a technického stavu domu.",
       href: externalUrls.serviceTechnicky,
-      icon: "wrench" as const,
+      details: [
+        "Fyzické prehliadky spoločných častí a zariadení domu.",
+        "Plány opráv, cenové ponuky a riešenie havarijných situácií.",
+        "Zabezpečenie odborných prehliadok a predpísaných skúšok.",
+      ],
     },
     {
       number: "04",
@@ -130,7 +198,11 @@ export const services = {
       description:
         "Riešenie právnych záležitostí v spolupráci s externým právnym zástupcom.",
       href: externalUrls.servicePravne,
-      icon: "scale" as const,
+      details: [
+        "Zmluvná spolupráca s externým právnym zástupcom.",
+        "Zastupovanie spravovaných objektov pri vymáhaní nedoplatkov.",
+        "Právne poradenstvo pre správcu a spravované objekty.",
+      ],
     },
   ],
 } as const;
@@ -138,10 +210,11 @@ export const services = {
 export const about = {
   eyebrow: "O SPOLOČNOSTI",
   heading: "Skúsenosti, na ktorých môžete stavať.",
-  paragraphs: [
-    "Už od roku 1996 poskytujeme služby za účelom správy obytných domov, bytov, nebytových priestorov, garáží, polyfunkčných a prevádzkových priestorov.",
-    "Na základe poznatkov nadobudnutých dlhoročnými skúsenosťami v danej oblasti sme vypracovali systém správy tak, aby čo najviac vyhovoval požiadavkám vlastníkov a zároveň bol v súlade s platnou legislatívou.",
-  ],
+  intro:
+    "SPRAVBYT s.r.o. bola založená 18. 3. 1996 za účelom správy obytných domov, bytov, nebytových priestorov, garáží a polyfunkčných priestorov. Systém správy sme vypracovali tak, aby vyhovoval požiadavkám vlastníkov a bol v súlade s platnou legislatívou.",
+  prioritiesLabel: "Naša priorita",
+  priorities:
+    "Presnosť, spoľahlivosť, ústretovosť a prístupnosť našich zamestnancov.",
   methods: [
     {
       number: "01",
@@ -155,7 +228,7 @@ export const about = {
     },
   ],
   moreHref: externalUrls.oNas,
-  moreLabel: "Viac o spoločnosti",
+  moreLabel: "Celý text O nás",
 } as const;
 
 export const quickLinks = {

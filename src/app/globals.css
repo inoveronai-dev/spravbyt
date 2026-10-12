@@ -186,6 +186,23 @@
     transition-delay: 320ms;
   }
 
+  .announcement-marquee {
+    animation: announcement-scroll 42s linear infinite;
+  }
+
+  .announcement-track:hover .announcement-marquee {
+    animation-play-state: paused;
+  }
+
+  @keyframes announcement-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   .hero-photo-zoom {
     animation: hero-zoom-out 2.2s cubic-bezier(0.22, 1, 0.36, 1) both;
     will-change: transform;
@@ -243,8 +260,16 @@
     .hero-enter-label,
     .hero-enter-heading,
     .hero-enter-body,
-    .hero-enter-cta {
+    .hero-enter-cta,
+    .announcement-marquee {
       animation: none;
+    }
+
+    .announcement-marquee {
+      flex-wrap: wrap;
+      width: 100% !important;
+      max-width: 100%;
+      row-gap: 0.35rem;
     }
   }
 }

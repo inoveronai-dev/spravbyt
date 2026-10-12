@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/about-section";
+import { AnnouncementsTicker } from "@/components/announcements-ticker";
 import { ContactSection } from "@/components/contact-section";
 import { HeroSection } from "@/components/hero-section";
 import { QuickLinksSection } from "@/components/quick-links-section";
@@ -9,9 +10,10 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <AnnouncementsTicker />
       <TrustSection />
-      <ServicesSection />
       <AboutSection />
+      <ServicesSection />
       <QuickLinksSection />
       <ContactSection />
     </>

@@ -1,7 +1,15 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
 
 import { MediaSlot } from "@/components/media-slot";
 import { Reveal } from "@/components/reveal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { services } from "@/lib/content";
 
 export function ServicesSection() {
@@ -27,38 +35,49 @@ export function ServicesSection() {
               </p>
             </Reveal>
 
-            <ul className="mt-10 border-t border-charcoal/10">
-              {services.items.map((item, index) => (
-                <Reveal
-                  key={item.number}
-                  as="li"
-                  delay={(Math.min(index + 1, 4) as 1 | 2 | 3 | 4)}
-                >
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-charcoal/10 py-6 transition-colors hover:bg-white/45 sm:gap-6 sm:py-7"
+            <Reveal delay={1}>
+              <Accordion className="mt-10 border-t border-charcoal/10">
+                {services.items.map((item) => (
+                  <AccordionItem
+                    key={item.number}
+                    value={item.number}
+                    className="border-b border-charcoal/10"
                   >
-                    <span className="font-heading text-[clamp(2rem,3vw,2.75rem)] font-semibold leading-none tracking-tight text-brand/55 transition-colors group-hover:text-brand">
-                      {item.number}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block font-heading text-lg font-semibold tracking-tight text-charcoal sm:text-xl">
-                        {item.title}
+                    <AccordionTrigger className="group/accordion-trigger rounded-none py-6 hover:no-underline focus-visible:ring-brand/40 sm:py-7">
+                      <span className="grid w-full grid-cols-[auto_1fr] items-start gap-4 pr-3 text-left sm:gap-6">
+                        <span className="font-heading text-[clamp(2rem,3vw,2.75rem)] font-semibold leading-none tracking-tight text-brand/55 transition-colors group-hover/accordion-trigger:text-brand group-aria-expanded/accordion-trigger:text-brand">
+                          {item.number}
+                        </span>
+                        <span>
+                          <span className="block font-heading text-lg font-semibold tracking-tight text-charcoal sm:text-xl">
+                            {item.title}
+                          </span>
+                          <span className="mt-1.5 block text-sm font-normal leading-relaxed text-ink-muted sm:text-[0.95rem]">
+                            {item.description}
+                          </span>
+                        </span>
                       </span>
-                      <span className="mt-1.5 block text-sm leading-relaxed text-ink-muted sm:text-[0.95rem]">
-                        {item.description}
-                      </span>
-                    </span>
-                    <ArrowUpRight
-                      className="size-5 shrink-0 text-charcoal/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-charcoal"
-                      aria-hidden
-                    />
-                  </a>
-                </Reveal>
-              ))}
-            </ul>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-6">
+                      <ul className="ml-[calc(2.5rem+1rem)] space-y-2.5 border-l-2 border-brand/30 pl-5 text-sm leading-relaxed text-ink-muted sm:ml-[calc(3rem+1.5rem)]">
+                        {item.details.map((detail) => (
+                          <li key={detail}>{detail}</li>
+                        ))}
+                      </ul>
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-[calc(2.5rem+1rem)] mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal link-underline sm:ml-[calc(3rem+1.5rem)]"
+                      >
+                        Viac na stránke O nás
+                        <ArrowUpRight className="size-4" aria-hidden />
+                      </a>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </Reveal>
           </div>
 
           <Reveal delay={2}>
