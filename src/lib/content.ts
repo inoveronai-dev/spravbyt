@@ -34,8 +34,10 @@ export const externalUrls = {
 } as const;
 
 /**
- * Portfolio figures shown on the homepage come from the live "O nás" page.
- * Older homepage copy listed different numbers (91 / 3 200 / 187) — keep for audit.
+ * CLIENT VERIFY — conflicting portfolio figures across company pages.
+ * Homepage historically: 91 objects / 3 200 flats / 187 non-residential.
+ * O nás page: 127+ / 3 992+ / 265.
+ * Values below are editable; do not invent reconciliations.
  */
 export const portfolioFromONas = {
   foundedDate: "18. 3. 1996",
@@ -48,55 +50,49 @@ export const portfolioFromONas = {
   area: "Banská Bystrica a okolie",
   priorities: "presnosť, spoľahlivosť, ústretovosť a prístupnosť",
   communities: 30,
+  sourceNote: "from spravbyt.sk/o-nas — client confirmation required",
 } as const;
 
 export const unverifiedPortfolioStats = {
   objects: 91,
   flats: 3200,
   nonResidential: 187,
-  source: "original homepage copy — superseded on homepage by O nás figures",
+  source: "original homepage copy — alternate dataset for client review",
 } as const;
 
-/** Short announcement teasers for the homepage ticker. Full pages remain on spravbyt.sk. */
+/**
+ * Homepage ticker notices. Prefer evergreen / still-relevant items.
+ * CLIENT VERIFY: emergency-service change dated 01.12.2025 may need confirmation
+ * that it remains the current provider. Do not invent notices.
+ */
 export const announcements = [
   {
     id: "havarijna-2025",
-    title: "Zmena poskytovateľa havarijnej služby",
-    excerpt:
-      "Od 01.12.2025 je novým poskytovateľom havarijnej služby Chaban HSU, s.r.o.",
-    body: "S účinnosťou od 01.12.2025 sa mení poskytovateľ havarijnej služby zo spoločnosti UHS Hazucha, ktorá ukončila svoju činnosť, na spoločnosť Chaban HSU, s.r.o. so sídlom Tajov 12, 976 34 Tajov.\n\nTelefonický kontakt na nového poskytovateľa havarijnej služby: 0903 530 977.\n\nV prípade porúch je potrebné sa obracať už na nového poskytovateľa havarijnej služby.",
-    dateLabel: "Od 01.12.2025",
+    title: "Havarijná služba — Chaban HSU",
+    excerpt: "Kontakt 0903 530 977 (oznam z 01.12.2025, overiť aktuálnosť).",
+    body: "Podľa oznamu na stránke Aktuality sa s účinnosťou od 01.12.2025 zmenil poskytovateľ havarijnej služby na Chaban HSU, s.r.o., Tajov 12, 976 34 Tajov.\n\nTelefonický kontakt uvedený v oznamu: 0903 530 977.\n\nProsím overte u správcu, či tento údaj zostáva aktuálny.",
+    dateLabel: "Oznam",
+    needsConfirmation: true,
   },
   {
     id: "dph-2025",
-    title: "Úprava DPH v položke správa",
-    excerpt:
-      "Od 01.01.2025 sa v položke správa zohľadňuje sadzba DPH 23 %.",
-    body: "S účinnosťou od 01.01.2025 nadobudla platnosť novela zákona č. 222/2004 o dani z pridanej hodnoty. Výška sadzby DPH sa mení z 20 % na 23 %.\n\nVlastníkom bytov a nebytových priestorov je v položke správa zohľadnená nová výška DPH. Keďže úprava poplatku je len o niekoľko centov mesačne, nové evidenčné listy z tohto dôvodu neboli zasielané.",
-    dateLabel: "Od 01.01.2025",
-  },
-  {
-    id: "strankove-dni",
-    title: "Stránkové dni pre vlastníkov",
-    excerpt:
-      "Pondelok 8:00–12:00 a streda 8:00–12:00 a 13:00–16:00.",
-    body: "Stránkové dni sú v pondelok od 8:00 do 12:00 a v stredu od 8:00 do 12:00 a od 13:00 do 16:00.\n\nOdporúčame vlastníkom prednostne využívať vybavovanie požiadaviek prostredníctvom e-mailu alebo telefónu.",
-    dateLabel: "Aktuálne",
+    title: "DPH v položke správa",
+    excerpt: "V položke správa je zohľadnená sadzba DPH 23 %.",
+    body: "Podľa oznamu na stránke Aktuality sa od 01.01.2025 v položke správa zohľadňuje sadzba DPH 23 % podľa novely zákona č. 222/2004 Z. z.\n\nÚprava poplatku bola podľa oznamu len o niekoľko centov mesačne.",
+    dateLabel: "Oznam",
   },
   {
     id: "sidlo",
     title: "Prevádzka na Dlhej ulici",
-    excerpt:
-      "Sídlo spoločnosti: Dlhá ulica 2039/2, 974 05 Banská Bystrica.",
-    body: "Prevádzka spoločnosti SPRAVBYT s.r.o. sa nachádza na adrese Dlhá ulica 2039/2, 974 05 Banská Bystrica (pri Kauflande v Radvani).",
+    excerpt: "Dlhá ulica 2039/2, 974 05 Banská Bystrica.",
+    body: "Prevádzka spoločnosti SPRAVBYT s.r.o. sa nachádza na adrese Dlhá ulica 2039/2, 974 05 Banská Bystrica.",
     dateLabel: "Sídlo",
   },
   {
     id: "aktuality-archiv",
-    title: "Ďalšie aktuality a archív oznámení",
-    excerpt:
-      "Kompletný prehľad oznámení nájdete na pôvodnej stránke Aktuality.",
-    body: "Na homepage uvádzame len vybrané, aktuálne oznamy v skrátenej podobe. Staršie a dlhšie oznámenia zostávajú dostupné na pôvodnej stránke Aktuality.",
+    title: "Archív oznámení",
+    excerpt: "Ďalšie oznamy a staršie texty na stránke Aktuality.",
+    body: "Na homepage uvádzame len vybrané skrátené oznamy. Kompletný archív vrátane starších oznámení je na pôvodnej stránke Aktuality.",
     dateLabel: "Archív",
     externalHref: "https://spravbyt.sk/aktuality/",
   },

@@ -6,23 +6,17 @@ import { footerNav, site } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-[#1a1f1c] text-white">
-      <div className="container-page flex flex-col gap-8 py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-7">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-          <Link href="/#uvod" aria-label={site.name} className="shrink-0">
-            <Image
-              src={site.logoSrc}
-              alt={site.logoAlt}
-              width={168}
-              height={44}
-              className="h-9 w-auto object-contain object-left"
-            />
-          </Link>
-          <div className="hidden h-8 w-px bg-white/15 sm:block" aria-hidden />
-          <p className="text-sm text-white/60">
-            {site.addressLines.join(", ")}
-          </p>
-        </div>
+    <footer className="border-t border-white/10 bg-forest-deep text-white">
+      <div className="container-page flex flex-col gap-7 py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-7">
+        <Link href="/#uvod" aria-label={site.name} className="shrink-0">
+          <Image
+            src={site.logoSrc}
+            alt={site.logoAlt}
+            width={168}
+            height={44}
+            className="h-9 w-auto object-contain object-left"
+          />
+        </Link>
 
         <nav aria-label="Pätičková navigácia">
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">

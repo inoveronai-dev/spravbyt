@@ -41,10 +41,13 @@
   --color-card: var(--card);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
   --color-charcoal: var(--charcoal);
   --color-charcoal-soft: var(--charcoal-soft);
   --color-surface: var(--surface);
   --color-ink-muted: var(--ink-muted);
+  --color-mist: var(--mist);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -55,16 +58,19 @@
 }
 
 :root {
-  /* SPRAVBYT design tokens */
-  --background: #f7f8f5;
-  --foreground: #202522;
+  /* SPRAVBYT design tokens — aligned to approved reference */
+  --background: #f6f7f2;
+  --foreground: #1c2420;
   --surface: #ffffff;
-  --charcoal: #202522;
-  --charcoal-soft: #343b36;
+  --charcoal: #1c2420;
+  --charcoal-soft: #2d3832;
   --brand: #a0c43b;
-  --brand-soft: #eff4e2;
-  --ink-muted: #656b66;
-  --border: #e4e8e1;
+  --brand-soft: #eef4e0;
+  --forest: #1f3d32;
+  --forest-deep: #162a22;
+  --mist: #eef1e8;
+  --ink-muted: #5f6862;
+  --border: #dde3d8;
 
   --card: #ffffff;
   --card-foreground: #202522;
@@ -137,7 +143,11 @@
   }
 
   .section-space {
-    padding-block: clamp(4.5rem, 9vw, 7.5rem);
+    padding-block: clamp(4rem, 8vw, 6.5rem);
+  }
+
+  .section-space-tight {
+    padding-block: clamp(3rem, 6vw, 4.5rem);
   }
 
   .eyebrow {
@@ -187,10 +197,11 @@
   }
 
   .announcement-marquee {
-    animation: announcement-scroll 42s linear infinite;
+    animation: announcement-scroll 48s linear infinite;
   }
 
-  .announcement-track:hover .announcement-marquee {
+  .announcement-track:hover .announcement-marquee,
+  .announcement-track:focus-within .announcement-marquee {
     animation-play-state: paused;
   }
 

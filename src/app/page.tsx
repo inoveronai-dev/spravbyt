@@ -12,8 +12,8 @@ export default function HomePage() {
       <HeroSection />
       <AnnouncementsTicker />
       <TrustSection />
-      <AboutSection />
       <ServicesSection />
+      <AboutSection />
       <QuickLinksSection />
       <ContactSection />
     </>
