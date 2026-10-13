@@ -109,7 +109,9 @@
   }
 
   html {
-    @apply font-sans scroll-smooth;
+    @apply font-sans;
+    scroll-behavior: auto;
+    scroll-padding-top: 5.5rem;
   }
 
   body {
