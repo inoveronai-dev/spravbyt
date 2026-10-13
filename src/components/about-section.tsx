@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight, FileText, Users } from "lucide-react";
 
-import { PhotoPlaceholder } from "@/components/photo-placeholder";
 import { Reveal } from "@/components/reveal";
 import { about } from "@/lib/content";
 
@@ -14,9 +14,23 @@ export function AboutSection() {
       aria-labelledby="about-heading"
     >
       <div className="container-page section-space">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 xl:gap-16">
+          <Reveal>
+            <figure className="relative w-full overflow-hidden rounded-2xl bg-mist">
+              <div className="relative aspect-[5/4] min-h-[16rem] w-full lg:min-h-[24rem]">
+                <Image
+                  src="/spravbyt-office.png"
+                  alt="Sídlo SPRAVBYT s.r.o. — prevádzka na prízemí bytového domu"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 46vw"
+                  className="object-cover object-[center_58%]"
+                />
+              </div>
+            </figure>
+          </Reveal>
+
           <div>
-            <Reveal>
+            <Reveal delay={1}>
               <p className="eyebrow">{about.eyebrow}</p>
               <h2
                 id="about-heading"
@@ -45,17 +59,9 @@ export function AboutSection() {
               </a>
             </Reveal>
           </div>
-
-          <Reveal delay={1}>
-            <PhotoPlaceholder
-              aspectClassName="aspect-[5/4] min-h-[16rem] lg:min-h-[22rem]"
-              className="w-full"
-              label="Fotografia sa doplní"
-            />
-          </Reveal>
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
           {about.methods.map((method, index) => {
             const Icon = methodIcons[index] ?? FileText;
             return (
