@@ -34,16 +34,19 @@ export function AboutSection() {
               <p className="eyebrow">{about.eyebrow}</p>
               <h2
                 id="about-heading"
-                className="mt-3 max-w-xl font-heading text-[clamp(1.9rem,3.5vw,2.85rem)] font-semibold tracking-[-0.03em] text-charcoal"
+                className="display-heading mt-4 max-w-[11ch] text-[clamp(2.55rem,5.4vw,4.35rem)] leading-[1.08] text-charcoal"
               >
-                {about.heading}
+                Skúsenosti,
+                <br />
+                na ktorých
+                <br />
+                môžete stavať.
               </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
                 {about.intro}
               </p>
-              <p className="mt-4 max-w-xl border-l-2 border-brand pl-4 text-sm leading-relaxed text-charcoal sm:text-base">
-                <span className="font-semibold">{about.prioritiesLabel}: </span>
-                {about.priorities}
+              <p className="font-display mt-8 max-w-md border-l-2 border-brand pl-5 text-[clamp(1.15rem,2vw,1.4rem)] font-medium italic leading-[1.45] tracking-[-0.01em] text-forest">
+                {about.prioritiesLabel}: {about.priorities}
               </p>
             </Reveal>
 
@@ -52,7 +55,7 @@ export function AboutSection() {
                 href={about.moreHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-forest link-underline"
+                className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-forest link-underline"
               >
                 Viac o spoločnosti
                 <ArrowUpRight className="size-4" aria-hidden />

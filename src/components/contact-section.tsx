@@ -19,11 +19,13 @@ export function ContactSection() {
               </p>
               <h2
                 id="contact-heading"
-                className="mt-4 max-w-xl font-heading text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.03em]"
+                className="display-heading mt-5 max-w-[12ch] text-[clamp(2.6rem,5.5vw,4.5rem)] leading-[1.08] text-white"
               >
-                {contact.heading}
+                Porozprávajme sa
+                <br />
+                o správe vášho domu.
               </h2>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg">
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg">
                 {contact.supporting}
               </p>
 

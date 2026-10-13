@@ -26,11 +26,11 @@ export function ServicesSection() {
               <p className="eyebrow">{services.eyebrow}</p>
               <h2
                 id="services-heading"
-                className="mt-3 max-w-lg font-heading text-[clamp(1.9rem,3.5vw,2.85rem)] font-semibold tracking-[-0.03em] text-charcoal"
+                className="display-heading mt-4 max-w-[14ch] text-[clamp(2.4rem,5vw,3.85rem)] leading-[1.08] text-charcoal"
               >
                 {services.heading}
               </h2>
-              <p className="mt-4 max-w-lg text-base leading-relaxed text-ink-muted sm:text-lg">
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted sm:text-lg">
                 {services.supporting}
               </p>
             </Reveal>

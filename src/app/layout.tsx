@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Newsreader } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -18,6 +18,13 @@ const inter = Inter({
   variable: "--font-body",
   subsets: ["latin", "latin-ext"],
   display: "swap",
+});
+
+const newsreader = Newsreader({
+  variable: "--font-display",
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -49,7 +56,7 @@ export default function RootLayout({
   return (
     <html
       lang="sk"
-      className={`${manrope.variable} ${inter.variable} h-full`}
+      className={`${manrope.variable} ${inter.variable} ${newsreader.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">

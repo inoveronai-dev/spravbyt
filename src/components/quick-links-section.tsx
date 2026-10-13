@@ -49,11 +49,11 @@ export function QuickLinksSection() {
           <div className="mx-auto max-w-2xl text-center">
             <h2
               id="quick-links-heading"
-              className="font-heading text-[clamp(1.9rem,3.5vw,2.85rem)] font-semibold tracking-[-0.03em] text-charcoal"
+              className="display-heading text-[clamp(2.35rem,4.8vw,3.65rem)] leading-[1.1] text-charcoal"
             >
               {quickLinks.heading}
             </h2>
-            <p className="mt-3 text-base text-ink-muted sm:text-lg">
+            <p className="mt-4 text-base text-ink-muted sm:text-lg">
               Rýchly prístup k najčastejším službám a informáciám pre vlastníkov.
             </p>
           </div>

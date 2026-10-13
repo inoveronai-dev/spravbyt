@@ -50,10 +50,10 @@ export function TrustSection() {
           <Reveal>
             <div className="max-w-md lg:pr-12 xl:pr-16">
               <p className="eyebrow">Skúsenosti</p>
-              <p className="mt-5 font-heading text-[clamp(2rem,4.2vw,3.15rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-charcoal">
+              <p className="display-heading mt-5 text-[clamp(2.15rem,4.4vw,3.35rem)] text-charcoal">
                 Od roku
               </p>
-              <p className="mt-1 font-heading text-[clamp(4.5rem,12vw,8.5rem)] font-semibold leading-[0.9] tracking-[-0.055em] text-forest">
+              <p className="font-display mt-1 text-[clamp(4.75rem,12.5vw,8.75rem)] font-medium leading-[0.88] tracking-[-0.045em] text-forest">
                 1996
               </p>
             </div>
@@ -63,7 +63,7 @@ export function TrustSection() {
             <div className="lg:border-l lg:border-border lg:pl-12 xl:pl-16">
               <h2
                 id="trust-heading"
-                className="max-w-2xl font-heading text-[clamp(1.35rem,2.4vw,1.85rem)] font-semibold leading-snug tracking-tight text-charcoal"
+                className="display-heading max-w-xl text-[clamp(1.55rem,2.6vw,2.15rem)] leading-[1.18] text-charcoal"
               >
                 {trust.description}
               </h2>
