@@ -1,10 +1,8 @@
 import Image from "next/image";
 import {
-  ArrowRight,
   ArrowUpRight,
   Building2,
   Check,
-  FileText,
   Home,
   MapPin,
   Users,
@@ -19,8 +17,6 @@ const values = [
   "Spoľahlivá technická starostlivosť",
   "Osobný a dostupný prístup",
 ] as const;
-
-const methodIcons = [FileText, Users] as const;
 
 /**
  * CLIENT VERIFY — portfolio figures from spravbyt.sk/o-nas still need client confirmation.
@@ -128,7 +124,7 @@ export function AboutSection() {
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 xl:gap-16">
           <Reveal>
             <figure className="relative w-full overflow-hidden rounded-2xl bg-mist">
-              <div className="relative aspect-[5/4] min-h-[16rem] w-full lg:min-h-[24rem]">
+              <div className="relative aspect-[4/5] min-h-[20rem] w-full lg:min-h-[34rem]">
                 <Image
                   src="/spravbyt-office.png"
                   alt="Sídlo SPRAVBYT s.r.o. — prevádzka na prízemí bytového domu"
@@ -173,35 +169,6 @@ export function AboutSection() {
               </a>
             </Reveal>
           </div>
-        </div>
-
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {about.methods.map((method, index) => {
-            const Icon = methodIcons[index] ?? FileText;
-            return (
-              <Reveal
-                key={method.number}
-                delay={(Math.min(index + 1, 2) as 1 | 2)}
-              >
-                <div className="flex items-center gap-4 rounded-2xl border border-border bg-mist/70 px-5 py-5 sm:px-6">
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand">
-                    <Icon className="size-5" aria-hidden />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-heading text-base font-semibold tracking-tight text-charcoal sm:text-lg">
-                      {method.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-ink-muted">
-                      {method.description}
-                    </p>
-                  </div>
-                  <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-forest">
-                    <ArrowRight className="size-4" aria-hidden />
-                  </span>
-                </div>
-              </Reveal>
-            );
-          })}
         </div>
       </div>
     </section>

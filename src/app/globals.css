@@ -213,21 +213,35 @@
     transition-delay: 320ms;
   }
 
-  .announcement-marquee {
-    animation: announcement-scroll 48s linear infinite;
+  .aktuality-track {
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  .announcement-track:hover .announcement-marquee,
-  .announcement-track:focus-within .announcement-marquee {
-    animation-play-state: paused;
+  .aktuality-track::-webkit-scrollbar {
+    display: none;
   }
 
-  @keyframes announcement-scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
+  .aktuality-track > * {
+    scroll-snap-align: start;
+  }
+
+  /* Hero parallax test — easy to remove with .hero-parallax-layer */
+  .hero-parallax-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    .hero-parallax-active .hero-parallax-layer {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      left: 0;
+      height: 100svh;
+      will-change: transform;
     }
   }
 
@@ -288,16 +302,17 @@
     .hero-enter-label,
     .hero-enter-heading,
     .hero-enter-body,
-    .hero-enter-cta,
-    .announcement-marquee {
+    .hero-enter-cta {
       animation: none;
     }
 
-    .announcement-marquee {
-      flex-wrap: wrap;
-      width: 100% !important;
-      max-width: 100%;
-      row-gap: 0.35rem;
+    .hero-parallax-layer {
+      transform: none !important;
+      will-change: auto;
+    }
+
+    .aktuality-track {
+      scroll-behavior: auto;
     }
   }
 }

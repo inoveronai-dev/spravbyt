@@ -61,39 +61,44 @@ export const unverifiedPortfolioStats = {
 } as const;
 
 /**
- * Homepage ticker notices. Prefer evergreen / still-relevant items.
+ * Homepage Aktuality cards. Prefer evergreen / still-relevant items.
  * CLIENT VERIFY: emergency-service change dated 01.12.2025 may need confirmation
- * that it remains the current provider. Do not invent notices.
+ * that it remains the current provider. Do not invent notices or publication dates.
+ * metaLabel uses verified effective dates where known — not invented publish dates.
  */
 export const announcements = [
   {
     id: "havarijna-2025",
     title: "Havarijná služba — Chaban HSU",
-    excerpt: "Kontakt 0903 530 977 (oznam z 01.12.2025, overiť aktuálnosť).",
+    excerpt:
+      "Zmena poskytovateľa havarijnej služby. Telefonický kontakt uvedený v oznamu: 0903 530 977.",
     body: "Podľa oznamu na stránke Aktuality sa s účinnosťou od 01.12.2025 zmenil poskytovateľ havarijnej služby na Chaban HSU, s.r.o., Tajov 12, 976 34 Tajov.\n\nTelefonický kontakt uvedený v oznamu: 0903 530 977.\n\nProsím overte u správcu, či tento údaj zostáva aktuálny.",
-    dateLabel: "Oznam",
+    metaLabel: "Účinnosť od 01.12.2025",
     needsConfirmation: true,
   },
   {
     id: "dph-2025",
     title: "DPH v položke správa",
-    excerpt: "V položke správa je zohľadnená sadzba DPH 23 %.",
+    excerpt:
+      "V položke správa je zohľadnená sadzba DPH 23 % podľa novely zákona.",
     body: "Podľa oznamu na stránke Aktuality sa od 01.01.2025 v položke správa zohľadňuje sadzba DPH 23 % podľa novely zákona č. 222/2004 Z. z.\n\nÚprava poplatku bola podľa oznamu len o niekoľko centov mesačne.",
-    dateLabel: "Oznam",
+    metaLabel: "Od 01.01.2025",
   },
   {
     id: "sidlo",
     title: "Prevádzka na Dlhej ulici",
-    excerpt: "Dlhá ulica 2039/2, 974 05 Banská Bystrica.",
+    excerpt:
+      "Aktuálna adresa prevádzky SPRAVBYT s.r.o. v Banskej Bystrici.",
     body: "Prevádzka spoločnosti SPRAVBYT s.r.o. sa nachádza na adrese Dlhá ulica 2039/2, 974 05 Banská Bystrica.",
-    dateLabel: "Sídlo",
+    metaLabel: "Prevádzka",
   },
   {
     id: "aktuality-archiv",
     title: "Archív oznámení",
-    excerpt: "Ďalšie oznamy a staršie texty na stránke Aktuality.",
+    excerpt:
+      "Ďalšie oznamy a staršie texty nájdete na pôvodnej stránke Aktuality.",
     body: "Na homepage uvádzame len vybrané skrátené oznamy. Kompletný archív vrátane starších oznámení je na pôvodnej stránke Aktuality.",
-    dateLabel: "Archív",
+    metaLabel: "Archív",
     externalHref: "https://spravbyt.sk/aktuality/",
   },
 ] as const;
@@ -204,7 +209,7 @@ export const services = {
 } as const;
 
 export const about = {
-  eyebrow: "O SPOLOČNOSTI",
+  eyebrow: "O NÁS",
   heading: "Skúsenosti, na ktorých môžete stavať.",
   intro:
     "SPRAVBYT s.r.o. bola založená 18. 3. 1996 za účelom správy obytných domov, bytov, nebytových priestorov, garáží a polyfunkčných priestorov. Systém správy sme vypracovali tak, aby vyhovoval požiadavkám vlastníkov a bol v súlade s platnou legislatívou.",
@@ -243,7 +248,7 @@ export const officeHours = {
 
 export const quickAccess = {
   eyebrow: "RÝCHLY PRÍSTUP",
-  heading: "Všetko dôležité na jednom mieste.",
+  heading: "Čo potrebujete vybaviť?",
   primaryCards: [
     {
       title: "Kontakty",

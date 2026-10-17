@@ -272,7 +272,6 @@ export function SiteHeader() {
           <nav
             className="container-page flex max-h-[min(70vh,32rem)] flex-col gap-1 overflow-y-auto py-4"
             aria-label="Mobilná navigácia"
-            data-lenis-prevent
           >
             {mobileItems.map((item) => {
               if (isPending(item)) {
