@@ -99,7 +99,7 @@ export function HeroSection() {
         }}
       />
 
-      <div className="container-page relative z-10 flex w-full flex-col items-center px-5 pb-[18vh] pt-[34vh] text-center sm:pb-[20vh] sm:pt-[36vh]">
+      <div className="container-page relative z-10 flex w-full flex-col items-center px-5 pb-[20vh] pt-[30vh] text-center sm:pb-[22vh] sm:pt-[calc(36vh-5.75rem)]">
         <div className="flex max-w-[52rem] flex-col items-center">
           <h1
             id="hero-heading"
@@ -107,9 +107,9 @@ export function HeroSection() {
           >
             Správa bytových domov
           </h1>
-          <p className="hero-enter-body mt-4 text-[clamp(0.95rem,1.35vw,1.125rem)] font-normal leading-relaxed tracking-[0.01em] text-white/90 sm:mt-5">
+          <p className="hero-enter-body mt-3.5 text-[clamp(1.2rem,1.7vw,1.4rem)] font-normal leading-relaxed tracking-[0.01em] text-white/90 sm:mt-4">
             Na ktorú sa môžete{" "}
-            <span className="text-brand">spoľahnúť</span>.
+            <span className="font-semibold text-[#b8d84a]">spoľahnúť.</span>
           </p>
         </div>
       </div>

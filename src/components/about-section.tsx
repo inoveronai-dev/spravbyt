@@ -120,7 +120,7 @@ export function AboutSection() {
       </div>
 
       {/* PART B — Company introduction */}
-      <div className="container-page section-space">
+      <div className="container-page pb-[clamp(4rem,8vw,6.5rem)] pt-10 sm:pt-12 lg:pt-14">
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 xl:gap-16">
           <Reveal>
             <figure className="relative w-full overflow-hidden rounded-2xl bg-mist">
