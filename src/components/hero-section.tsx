@@ -1,7 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-
-import { hero } from "@/lib/content";
 
 export function HeroSection() {
   return (
@@ -32,38 +29,17 @@ export function HeroSection() {
         }}
       />
 
-      <div className="container-page relative z-10 flex w-full flex-col items-center px-5 pb-16 pt-28 text-center sm:pb-20 sm:pt-32">
-        <p className="hero-enter-label text-xs font-semibold tracking-[0.16em] text-white/80 sm:text-[0.8rem]">
-          {hero.eyebrow}
-        </p>
-
+      <div className="container-page relative z-10 flex w-full flex-col items-center justify-center px-5 pb-24 pt-32 text-center sm:pb-28 sm:pt-36">
         <h1
           id="hero-heading"
-          className="hero-enter-heading mt-5 max-w-[16ch] font-heading text-[clamp(2rem,5.4vw,4.25rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:max-w-[18ch]"
+          className="hero-enter-heading display-heading max-w-[13ch] text-balance text-[clamp(2.85rem,6vw,5.75rem)] leading-[1.1] text-white sm:max-w-[15ch]"
         >
           Správa bytových domov,
           <br className="hidden sm:block" />{" "}
-          na ktorú sa môžete spoľahnúť.
+          na ktorú sa{" "}
+          <span className="text-brand">môžete</span>
+          <br className="sm:hidden" /> spoľahnúť.
         </h1>
-
-        <p className="hero-enter-body mt-5 max-w-xl text-base leading-relaxed text-white/82 sm:mt-6 sm:text-lg">
-          {hero.supporting}
-        </p>
-
-        <div className="hero-enter-cta mt-8 flex w-full max-w-md flex-col gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:justify-center">
-          <Link
-            href={hero.primaryCta.href}
-            className="inline-flex h-12 items-center justify-center rounded-md bg-brand px-7 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032]"
-          >
-            {hero.primaryCta.label}
-          </Link>
-          <Link
-            href={hero.secondaryCta.href}
-            className="inline-flex h-12 items-center justify-center rounded-md border border-white/35 bg-white/8 px-7 text-sm font-semibold text-white backdrop-blur-[2px] transition-colors hover:border-white/55 hover:bg-white/14"
-          >
-            {hero.secondaryCta.label}
-          </Link>
-        </div>
       </div>
     </section>
   );

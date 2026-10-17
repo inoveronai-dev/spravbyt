@@ -227,38 +227,57 @@ export const about = {
   moreLabel: "Celý text O nás",
 } as const;
 
-export const quickLinks = {
-  heading: "Čo potrebujete vybaviť?",
-  items: [
+export const officeHours = {
+  heading: "Úradné hodiny",
+  rows: [
+    {
+      day: "Pondelok",
+      times: ["8:00 – 12:00"],
+    },
+    {
+      day: "Streda",
+      times: ["8:00 – 12:00", "13:00 – 16:00"],
+    },
+  ],
+} as const;
+
+export const quickAccess = {
+  eyebrow: "RÝCHLY PRÍSTUP",
+  heading: "Všetko dôležité na jednom mieste.",
+  primaryCards: [
+    {
+      title: "Kontakty",
+      href: "/#kontakt",
+      external: false,
+      icon: "phone" as const,
+    },
     {
       title: "Online vstup",
-      description: "Prístup pre vlastníkov",
       href: externalUrls.onlineVstup,
+      external: true,
       icon: "log-in" as const,
     },
     {
-      title: "Dokumenty na stiahnutie",
-      description: "Formuláre a podklady",
+      title: "Dokumenty a tlačivá",
       href: externalUrls.naStiahnutie,
-      icon: "download" as const,
+      external: true,
+      icon: "file-text" as const,
     },
     {
+      title: "Aktuality a oznamy",
+      href: externalUrls.aktuality,
+      external: true,
+      icon: "bell" as const,
+    },
+  ],
+  secondaryLinks: [
+    {
       title: "Teplo",
-      description: "Informácie o dodávke tepla",
       href: externalUrls.teplo,
-      icon: "flame" as const,
     },
     {
       title: "Vodné a stočné",
-      description: "Voda a stočné",
       href: externalUrls.vodneAStocne,
-      icon: "droplets" as const,
-    },
-    {
-      title: "Aktuality",
-      description: "Aktuálne správy spoločnosti",
-      href: externalUrls.aktuality,
-      icon: "newspaper" as const,
     },
   ],
 } as const;
