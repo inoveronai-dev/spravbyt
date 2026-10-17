@@ -56,6 +56,19 @@ export function SiteHeader() {
   const infoRef = useRef<HTMLDivElement>(null);
   const infoMenuId = useId();
   const solidHeader = !overHero || mobileOpen;
+  const emergencyOnHero = overHero && !mobileOpen;
+  const emergencyCtaClass = cn(
+    "inline-flex items-center gap-2 rounded-md px-3.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60",
+    emergencyOnHero
+      ? "h-10 border border-white/35 bg-white/10 text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/18"
+      : "h-10 bg-brand text-charcoal hover:bg-[#8fb032]"
+  );
+  const emergencyCtaMobileClass = cn(
+    "inline-flex h-10 items-center gap-1.5 rounded-md text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 sm:px-3",
+    emergencyOnHero
+      ? "border border-white/35 bg-white/10 px-2.5 text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/18"
+      : "bg-brand px-2.5 text-charcoal hover:bg-[#8fb032]"
+  );
 
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 24);
@@ -238,7 +251,7 @@ export function SiteHeader() {
 
           <a
             href={emergencyService.phoneHref}
-            className="ml-1 inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
+            className={cn("ml-1", emergencyCtaClass)}
             aria-label={`${emergencyService.label}: ${emergencyService.phoneDisplay}`}
           >
             <Phone className="size-3.5 shrink-0" aria-hidden />
@@ -253,7 +266,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2 xl:hidden">
           <a
             href={emergencyService.phoneHref}
-            className="inline-flex h-10 items-center gap-1.5 rounded-md bg-brand px-2.5 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 sm:px-3"
+            className={emergencyCtaMobileClass}
             aria-label={`${emergencyService.label}: ${emergencyService.phoneDisplay}`}
           >
             <Phone className="size-3.5 shrink-0" aria-hidden />
