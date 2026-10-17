@@ -111,7 +111,6 @@ export function SiteHeader() {
       label: "Online vstup",
       href: externalUrls.onlineVstup,
       external: true,
-      emphasize: true,
     },
     { label: "Kontakt", href: "/#kontakt" },
   ];
@@ -125,35 +124,6 @@ export function SiteHeader() {
           : "border-b border-transparent bg-transparent shadow-none"
       )}
     >
-      <div
-        className={cn(
-          "border-b transition-colors duration-300",
-          solidHeader
-            ? "border-white/10 bg-forest-deep"
-            : "border-white/10 bg-black/25 backdrop-blur-[2px]"
-        )}
-      >
-        <div className="container-page flex h-10 items-center justify-end sm:h-11">
-          <a
-            href={emergencyService.phoneHref}
-            className="inline-flex items-center gap-2 rounded-md px-2 py-1 text-left transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 sm:gap-2.5"
-            aria-label={`${emergencyService.label}: ${emergencyService.phoneDisplay}`}
-          >
-            <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-brand/20 text-brand">
-              <Phone className="size-3.5" aria-hidden />
-            </span>
-            <span className="min-w-0 leading-tight">
-              <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white/70 sm:text-[0.68rem]">
-                {emergencyService.label}
-              </span>
-              <span className="block text-sm font-semibold tracking-tight text-brand sm:text-[0.95rem]">
-                {emergencyService.phoneDisplay}
-              </span>
-            </span>
-          </a>
-        </div>
-      </div>
-
       <div
         className={cn(
           "container-page flex items-center justify-between gap-4 transition-[height] duration-300",
@@ -254,7 +224,7 @@ export function SiteHeader() {
             href={externalUrls.onlineVstup}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-1 inline-flex h-10 items-center rounded-md bg-brand px-4 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032]"
+            className="rounded-md px-3 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand"
           >
             Online vstup
           </a>
@@ -265,14 +235,38 @@ export function SiteHeader() {
           >
             Kontakt
           </Link>
+
+          <a
+            href={emergencyService.phoneHref}
+            className="ml-1 inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
+            aria-label={`${emergencyService.label}: ${emergencyService.phoneDisplay}`}
+          >
+            <Phone className="size-3.5 shrink-0" aria-hidden />
+            <span className="tracking-tight">
+              {emergencyService.label}
+              <span className="opacity-70"> — </span>
+              {emergencyService.phoneDisplay}
+            </span>
+          </a>
         </nav>
 
         <div className="flex items-center gap-2 xl:hidden">
           <a
+            href={emergencyService.phoneHref}
+            className="inline-flex h-10 items-center gap-1.5 rounded-md bg-brand px-2.5 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 sm:px-3"
+            aria-label={`${emergencyService.label}: ${emergencyService.phoneDisplay}`}
+          >
+            <Phone className="size-3.5 shrink-0" aria-hidden />
+            <span className="hidden tracking-tight sm:inline">
+              {emergencyService.phoneDisplay}
+            </span>
+          </a>
+
+          <a
             href={externalUrls.onlineVstup}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 items-center rounded-md bg-brand px-3 text-sm font-semibold text-charcoal transition-colors hover:bg-[#8fb032]"
+            className="rounded-md px-2 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand sm:px-3"
           >
             Online vstup
           </a>
@@ -325,12 +319,7 @@ export function SiteHeader() {
                   key={item.label}
                   item={item}
                   onNavigate={() => setMobileOpen(false)}
-                  className={cn(
-                    "rounded-md px-3 py-3 text-base font-medium transition-colors",
-                    item.emphasize
-                      ? "bg-brand/15 text-brand"
-                      : "text-white/90 hover:bg-white/5 hover:text-brand"
-                  )}
+                  className="rounded-md px-3 py-3 text-base font-medium text-white/90 transition-colors hover:bg-white/5 hover:text-brand"
                 />
               );
             })}
@@ -339,16 +328,16 @@ export function SiteHeader() {
           <div className="container-page space-y-3 border-t border-white/10 py-4 text-sm text-white/70">
             <a
               href={emergencyService.phoneHref}
-              className="flex items-center gap-3 rounded-md bg-brand/10 px-3 py-3 text-white transition-colors hover:bg-brand/15"
+              className="flex items-center gap-3 rounded-md bg-brand px-3 py-3 text-charcoal transition-colors hover:bg-[#8fb032]"
             >
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/20 text-brand">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-charcoal/10">
                 <Phone className="size-4" aria-hidden />
               </span>
               <span>
-                <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-brand">
+                <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-charcoal/70">
                   {emergencyService.label}
                 </span>
-                <span className="mt-0.5 block text-base font-semibold text-white">
+                <span className="mt-0.5 block text-base font-semibold">
                   {emergencyService.phoneDisplay}
                 </span>
               </span>

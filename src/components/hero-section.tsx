@@ -4,10 +4,18 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 /**
- * Isolated hero parallax test.
- * Desktop: scroll-linked translate on a clipped viewport-tall layer (Lenis-safe).
- * Mobile / reduced-motion: disabled — normal cover image.
+ * Stable hero parallax:
+ * - Outer layer: scroll translate only (GPU).
+ * - Image: entrance zoom only (separate transform).
+ * - Parallax waits until zoom finishes so the first post-load scroll
+ *   does not fight the scale animation (that was the initial jump).
+ * - If the user already scrolled during the intro, ease to the target
+ *   instead of snapping.
  */
+const PARALLAX_FACTOR = 0.28;
+const ZOOM_FALLBACK_MS = 2400;
+const EASE_MS = 220;
+
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
@@ -23,48 +31,138 @@ export function HeroSection() {
     );
 
     let frame = 0;
+    let easeFrame = 0;
+    let lastY = 0;
+    let parallaxReady = false;
+    let zoomDone = false;
+    let readyTimer = 0;
+    let easeStart = 0;
+    let easeFrom = 0;
+    let easeTo = 0;
 
-    const reset = () => {
-      layer.style.transform = "";
-      section.classList.remove("hero-parallax-active");
+    // Warm the compositor layer before any scroll-driven updates.
+    layer.style.transform = "translate3d(0, 0, 0)";
+
+    const targetY = () => {
+      const rect = section.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      if (rect.bottom <= 0 || rect.top >= viewH) return lastY;
+
+      const clipH = section.clientHeight;
+      const layerH = layer.offsetHeight;
+      const maxShift = Math.max(0, Math.floor(layerH - clipH - 2));
+      const scrolled = Math.min(Math.max(-rect.top, 0), clipH);
+      return Math.min(Math.round(scrolled * PARALLAX_FACTOR), maxShift);
+    };
+
+    const applyY = (y: number) => {
+      lastY = y;
+      layer.style.transform = `translate3d(0, ${y}px, 0)`;
+    };
+
+    const tickEase = (now: number) => {
+      const t = Math.min(1, (now - easeStart) / EASE_MS);
+      // Smoothstep — short ease so the first engagement never snaps.
+      const s = t * t * (3 - 2 * t);
+      applyY(Math.round(easeFrom + (easeTo - easeFrom) * s));
+      if (t < 1) {
+        easeFrame = window.requestAnimationFrame(tickEase);
+      } else {
+        easeFrame = 0;
+      }
     };
 
     const update = () => {
       frame = 0;
 
-      if (motionQuery.matches || !desktopQuery.matches) {
-        reset();
+      if (motionQuery.matches || !desktopQuery.matches || !parallaxReady) {
+        if (!parallaxReady) applyY(0);
         return;
       }
 
-      const rect = section.getBoundingClientRect();
-      if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
-        return;
-      }
+      // Skip direct updates while the intro ease is running.
+      if (easeFrame) return;
 
-      section.classList.add("hero-parallax-active");
-      // Near-stationary relative to the viewport (subtle fixed-background feel).
-      layer.style.transform = `translate3d(0, ${-rect.top}px, 0)`;
+      const y = targetY();
+      if (y === lastY) return;
+      applyY(y);
     };
 
     const requestUpdate = () => {
       if (frame) return;
-      frame = requestAnimationFrame(update);
+      frame = window.requestAnimationFrame(update);
     };
 
-    update();
+    const enableParallax = () => {
+      if (parallaxReady || motionQuery.matches || !desktopQuery.matches) {
+        return;
+      }
+
+      parallaxReady = true;
+      const next = targetY();
+
+      if (next === 0 || prefersInstant()) {
+        applyY(next);
+        return;
+      }
+
+      // User already scrolled during the zoom intro — ease instead of jumping.
+      easeFrom = lastY;
+      easeTo = next;
+      easeStart = performance.now();
+      if (easeFrame) window.cancelAnimationFrame(easeFrame);
+      easeFrame = window.requestAnimationFrame(tickEase);
+    };
+
+    const prefersInstant = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const photo = section.querySelector<HTMLElement>(".hero-photo-zoom");
+
+    const clearZoomTransform = () => {
+      if (!photo) return;
+      // Drop the finished scale animation so only the outer parallax
+      // transform remains — avoids a composed-matrix pop on first scroll.
+      photo.style.animation = "none";
+      photo.style.transform = "none";
+    };
+
+    const onZoomEnd = (event: AnimationEvent) => {
+      if (event.animationName !== "hero-zoom-out") return;
+      zoomDone = true;
+      clearZoomTransform();
+      enableParallax();
+    };
+
+    photo?.addEventListener("animationend", onZoomEnd);
+
+    if (motionQuery.matches) {
+      clearZoomTransform();
+      applyY(0);
+    } else {
+      readyTimer = window.setTimeout(() => {
+        if (!zoomDone) {
+          clearZoomTransform();
+          enableParallax();
+        }
+      }, ZOOM_FALLBACK_MS);
+    }
+
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate, { passive: true });
     motionQuery.addEventListener("change", requestUpdate);
     desktopQuery.addEventListener("change", requestUpdate);
 
     return () => {
-      if (frame) cancelAnimationFrame(frame);
+      if (frame) window.cancelAnimationFrame(frame);
+      if (easeFrame) window.cancelAnimationFrame(easeFrame);
+      if (readyTimer) window.clearTimeout(readyTimer);
+      photo?.removeEventListener("animationend", onZoomEnd);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
       motionQuery.removeEventListener("change", requestUpdate);
       desktopQuery.removeEventListener("change", requestUpdate);
-      reset();
+      layer.style.transform = "";
     };
   }, []);
 
@@ -75,7 +173,7 @@ export function HeroSection() {
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-charcoal"
       aria-labelledby="hero-heading"
     >
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="hero-parallax-clip absolute inset-0 overflow-hidden">
         <div ref={layerRef} className="hero-parallax-layer">
           <Image
             src="/banska-bystrica-hero.png"

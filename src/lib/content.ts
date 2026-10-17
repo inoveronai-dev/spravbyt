@@ -116,7 +116,6 @@ export type NavItem =
       label: string;
       href: string;
       external?: boolean;
-      emphasize?: boolean;
     }
   | {
       label: string;
@@ -127,7 +126,7 @@ export type NavItem =
 export const primaryNav: NavItem[] = [
   { label: "Úvod", href: "/#uvod" },
   { label: "O nás", href: externalUrls.oNas, external: true },
-  { label: "Online vstup", href: externalUrls.onlineVstup, external: true, emphasize: true },
+  { label: "Online vstup", href: externalUrls.onlineVstup, external: true },
   { label: "Kontakt", href: "/#kontakt" },
 ];
 
