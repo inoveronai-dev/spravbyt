@@ -13,10 +13,18 @@ export const site = {
   email: "spravbytbb@gmail.com",
   emailHref: "mailto:spravbytbb@gmail.com",
   addressLines: ["Dlhá ulica 2039/2", "974 05 Banská Bystrica"],
-  mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Dlhá+ulica+2039%2F2%2C+974+05+Banská+Bystrica",
+  mapsUrl: "https://maps.app.goo.gl/GybxWd9Y7aCtvLbV8",
+  mapsEmbedSrc:
+    "https://www.google.com/maps?q=48.7252415,19.1329223&hl=sk&z=17&output=embed",
   logoSrc: "/logo-spravbyt.png",
   logoAlt: "SPRAVBYT s.r.o. — Správa bytových domov",
+} as const;
+
+/** CLIENT VERIFY — emergency number from Aktuality notice (01.12.2025). */
+export const emergencyService = {
+  label: "Havarijná služba",
+  phoneDisplay: "0903 530 977",
+  phoneHref: "tel:+421903530977",
 } as const;
 
 export const externalUrls = {
@@ -142,7 +150,7 @@ export const hero = {
   headingAfter: ".",
   supporting:
     "Od roku 1996 poskytujeme služby správy nehnuteľností v Banskej Bystrici a okolí.",
-  primaryCta: { label: "Kontaktujte nás", href: "#kontakt" },
+  primaryCta: { label: "Kontaktujte nás", href: "/#kontakt" },
   secondaryCta: { label: "Naše služby", href: "#sluzby" },
   locationLabel: "Banská Bystrica a okolie",
   imageSrc: "/banska-bystrica-hero.png",
@@ -270,8 +278,8 @@ export const quickAccess = {
     },
     {
       title: "Aktuality a oznamy",
-      href: externalUrls.aktuality,
-      external: true,
+      href: "/#aktuality",
+      external: false,
       icon: "bell" as const,
     },
   ],

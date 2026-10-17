@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { cn } from "cn";
 
 import {
+  emergencyService,
   externalUrls,
   infoNav,
   site,
@@ -124,6 +125,35 @@ export function SiteHeader() {
           : "border-b border-transparent bg-transparent shadow-none"
       )}
     >
+      <div
+        className={cn(
+          "border-b transition-colors duration-300",
+          solidHeader
+            ? "border-white/10 bg-forest-deep"
+            : "border-white/10 bg-black/25 backdrop-blur-[2px]"
+        )}
+      >
+        <div className="container-page flex h-10 items-center justify-end sm:h-11">
+          <a
+            href={emergencyService.phoneHref}
+            className="inline-flex items-center gap-2 rounded-md px-2 py-1 text-left transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 sm:gap-2.5"
+            aria-label={`${emergencyService.label}: ${emergencyService.phoneDisplay}`}
+          >
+            <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-brand/20 text-brand">
+              <Phone className="size-3.5" aria-hidden />
+            </span>
+            <span className="min-w-0 leading-tight">
+              <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white/70 sm:text-[0.68rem]">
+                {emergencyService.label}
+              </span>
+              <span className="block text-sm font-semibold tracking-tight text-brand sm:text-[0.95rem]">
+                {emergencyService.phoneDisplay}
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
+
       <div
         className={cn(
           "container-page flex items-center justify-between gap-4 transition-[height] duration-300",
@@ -306,7 +336,23 @@ export function SiteHeader() {
             })}
           </nav>
 
-          <div className="container-page border-t border-white/10 py-4 text-sm text-white/70">
+          <div className="container-page space-y-3 border-t border-white/10 py-4 text-sm text-white/70">
+            <a
+              href={emergencyService.phoneHref}
+              className="flex items-center gap-3 rounded-md bg-brand/10 px-3 py-3 text-white transition-colors hover:bg-brand/15"
+            >
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-brand/20 text-brand">
+                <Phone className="size-4" aria-hidden />
+              </span>
+              <span>
+                <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-brand">
+                  {emergencyService.label}
+                </span>
+                <span className="mt-0.5 block text-base font-semibold text-white">
+                  {emergencyService.phoneDisplay}
+                </span>
+              </span>
+            </a>
             <a
               href={site.phoneHref}
               className="block font-medium text-white transition-colors hover:text-brand"
@@ -315,7 +361,7 @@ export function SiteHeader() {
             </a>
             <a
               href={site.emailHref}
-              className="mt-2 block transition-colors hover:text-brand"
+              className="block transition-colors hover:text-brand"
             >
               {site.email}
             </a>

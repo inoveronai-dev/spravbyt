@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { AktualityCarousel } from "@/components/aktuality-carousel";
 import { Reveal } from "@/components/reveal";
 import { officeHours, quickAccess, site } from "@/lib/content";
 
@@ -41,7 +42,10 @@ export function QuickAccessSection() {
         </Reveal>
 
         <Reveal delay={1}>
-          <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-surface">
+          <div
+            id="kontakt"
+            className="mt-12 scroll-mt-28 overflow-hidden rounded-2xl border border-border bg-surface sm:scroll-mt-32"
+          >
             <div className="grid lg:grid-cols-2">
               <aside className="px-6 py-7 sm:px-8 sm:py-8 lg:px-10 lg:py-9">
                 <h3 className="font-heading text-[clamp(1.35rem,2vw,1.65rem)] font-semibold tracking-tight text-charcoal">
@@ -179,6 +183,12 @@ export function QuickAccessSection() {
                 <ArrowUpRight className="size-3.5" aria-hidden />
               </a>
             ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={2}>
+          <div className="mt-10 border-t border-border/80 pt-8">
+            <AktualityCarousel />
           </div>
         </Reveal>
       </div>
