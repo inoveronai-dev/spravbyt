@@ -5,6 +5,7 @@ import {
   Clock3,
   FileText,
   LogIn,
+  Mail,
   MapPin,
   Phone,
 } from "lucide-react";
@@ -75,17 +76,38 @@ export function QuickAccessSection() {
                   </div>
                 </div>
 
-                <div className="mt-7 border-t border-border pt-6">
-                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
-                    Telefón
-                  </p>
-                  <a
-                    href={site.phoneHref}
-                    className="mt-2 inline-flex items-center gap-3 font-heading text-[clamp(1.7rem,3vw,2.35rem)] font-semibold tracking-tight text-charcoal transition-colors hover:text-forest"
-                  >
-                    <Phone className="size-5 shrink-0 text-brand sm:size-6" aria-hidden />
-                    {site.phoneDisplay}
-                  </a>
+                <div className="mt-7 space-y-5 border-t border-border pt-6">
+                  <div>
+                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                      Telefón
+                    </p>
+                    <a
+                      href={site.phoneHref}
+                      className="mt-2 inline-flex items-center gap-3 font-heading text-[clamp(1.55rem,2.6vw,2.1rem)] font-semibold tracking-tight text-charcoal transition-colors hover:text-forest"
+                    >
+                      <Phone
+                        className="size-5 shrink-0 text-brand sm:size-[1.35rem]"
+                        aria-hidden
+                      />
+                      {site.phoneDisplay}
+                    </a>
+                  </div>
+
+                  <div>
+                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                      E-mail
+                    </p>
+                    <a
+                      href={site.emailHref}
+                      className="mt-2 inline-flex min-w-0 items-center gap-3 font-heading text-[clamp(1.05rem,1.8vw,1.25rem)] font-semibold tracking-tight text-charcoal transition-colors hover:text-forest"
+                    >
+                      <Mail
+                        className="size-5 shrink-0 text-brand sm:size-[1.35rem]"
+                        aria-hidden
+                      />
+                      <span className="truncate">{site.email}</span>
+                    </a>
+                  </div>
                 </div>
               </aside>
 
