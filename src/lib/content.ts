@@ -254,7 +254,6 @@ export const officeHours = {
 } as const;
 
 export const quickAccess = {
-  eyebrow: "RÝCHLY PRÍSTUP",
   heading: "Čo potrebujete vybaviť?",
   primaryCards: [
     {

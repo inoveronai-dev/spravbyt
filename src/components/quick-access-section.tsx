@@ -32,10 +32,9 @@ export function QuickAccessSection() {
       <div className="container-page section-space">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow">{quickAccess.eyebrow}</p>
             <h2
               id="quick-access-heading"
-              className="display-heading mt-4 text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] text-charcoal"
+              className="display-heading text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] text-charcoal"
             >
               {quickAccess.heading}
             </h2>
