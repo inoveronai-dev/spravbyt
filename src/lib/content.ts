@@ -293,6 +293,16 @@ export const quickAccess = {
   ],
 } as const;
 
+export const parallaxCta = {
+  imageSrc: "/banska-bystrica-hero.png",
+  imageAlt: "Námestie SNP v Banskej Bystrici pri západe slnka",
+  headingBefore: "Máte záujem o služby ",
+  headingAccent: "správcu",
+  headingAfter: " bytového domu?",
+  ctaLabel: "Kontaktujte nás",
+  ctaHref: "/#kontakt",
+} as const;
+
 export const contact = {
   heading: "Porozprávajme sa o správe vášho domu.",
   supporting:
