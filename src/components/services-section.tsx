@@ -24,7 +24,8 @@ const serviceVisuals = [
     number: "02",
     src: "/service-ekonomicky-usek.png",
     alt: "Architektonický model a dokumenty — vizuál pre ekonomický úsek",
-    objectPosition: "object-center",
+    /* Shift right so the calculator on the desk edge stays in frame */
+    objectPosition: "object-[72%_48%]",
   },
   {
     number: "03",
