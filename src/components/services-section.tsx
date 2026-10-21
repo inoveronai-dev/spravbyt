@@ -18,7 +18,9 @@ const serviceVisuals = [
     number: "01",
     src: "/service-vykon-spravy.png",
     alt: "Moderný bytový komplex — vizuál pre výkon správy",
-    objectPosition: "object-[center_42%]",
+    /* Wide landscape — pull framing back (wider frame), no zoom-in */
+    objectPosition: "object-center",
+    wideFrame: true,
   },
   {
     number: "02",
@@ -26,18 +28,21 @@ const serviceVisuals = [
     alt: "Architektonický model a dokumenty — vizuál pre ekonomický úsek",
     /* Shift right so the calculator on the desk edge stays in frame */
     objectPosition: "object-[72%_48%]",
+    wideFrame: false,
   },
   {
     number: "03",
     src: "/service-technicky-usek.png",
     alt: "Technik so tabletovým zariadením — vizuál pre technický úsek",
     objectPosition: "object-[center_28%]",
+    wideFrame: false,
   },
   {
     number: "04",
     src: "/service-pravne-zalezitosti.png",
     alt: "Právna konzultácia nad dokumentmi — vizuál pre právne záležitosti",
     objectPosition: "object-[center_32%]",
+    wideFrame: false,
   },
 ] as const;
 
@@ -49,6 +54,10 @@ export function ServicesSection() {
 
   const activeNumber =
     previewValue ?? openValues[0] ?? defaultService;
+  const activeVisual =
+    serviceVisuals.find((v) => v.number === activeNumber) ??
+    serviceVisuals[0];
+  const widePreview = activeVisual.wideFrame;
 
   return (
     <section
@@ -135,7 +144,13 @@ export function ServicesSection() {
               className="relative w-full overflow-hidden rounded-2xl bg-mist"
               aria-live="polite"
             >
-              <div className="relative aspect-[4/5] min-h-[22rem] w-full lg:min-h-[34rem]">
+              <div
+                className={
+                  widePreview
+                    ? "relative aspect-[3/2] min-h-[18rem] w-full transition-[aspect-ratio,min-height] duration-500 ease-out lg:min-h-[28rem]"
+                    : "relative aspect-[4/5] min-h-[22rem] w-full transition-[aspect-ratio,min-height] duration-500 ease-out lg:min-h-[34rem]"
+                }
+              >
                 {serviceVisuals.map((visual, index) => {
                   const isActive = visual.number === activeNumber;
                   return (
