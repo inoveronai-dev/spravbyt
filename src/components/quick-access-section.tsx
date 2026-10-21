@@ -9,9 +9,8 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import Link from "next/link";
-
 import { AktualityCarousel } from "@/components/aktuality-carousel";
+import { DemoLink } from "@/components/demo-link";
 import { Reveal } from "@/components/reveal";
 import { officeHours, quickAccess, site } from "@/lib/content";
 
@@ -170,20 +169,13 @@ export function QuickAccessSection() {
                 key={card.title}
                 delay={(Math.min(index + 1, 4) as 1 | 2 | 3 | 4)}
               >
-                {card.external ? (
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={className}
-                  >
-                    {inner}
-                  </a>
-                ) : (
-                  <Link href={card.href} className={className}>
-                    {inner}
-                  </Link>
-                )}
+                <DemoLink
+                  href={card.href}
+                  external={card.external}
+                  className={className}
+                >
+                  {inner}
+                </DemoLink>
               </Reveal>
             );
           })}
@@ -193,16 +185,15 @@ export function QuickAccessSection() {
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:justify-start">
             <span className="text-sm text-ink-muted">Ďalšie informácie:</span>
             {quickAccess.secondaryLinks.map((link) => (
-              <a
+              <DemoLink
                 key={link.title}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                external
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest link-underline"
               >
                 {link.title}
                 <ArrowUpRight className="size-3.5" aria-hidden />
-              </a>
+              </DemoLink>
             ))}
           </div>
         </Reveal>

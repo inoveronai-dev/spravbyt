@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { cn } from "cn";
 
+import { DemoLink } from "@/components/demo-link";
 import {
   emergencyService,
   externalUrls,
@@ -27,24 +28,15 @@ function ExternalOrAnchor({
   className?: string;
   onNavigate?: () => void;
 }) {
-  if (item.external) {
-    return (
-      <a
-        href={item.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-        onClick={onNavigate}
-      >
-        {item.label}
-      </a>
-    );
-  }
-
   return (
-    <Link href={item.href} className={className} onClick={onNavigate}>
+    <DemoLink
+      href={item.href}
+      external={item.external}
+      className={className}
+      onClick={onNavigate}
+    >
       {item.label}
-    </Link>
+    </DemoLink>
   );
 }
 
@@ -167,14 +159,13 @@ export function SiteHeader() {
           >
             Úvod
           </Link>
-          <a
+          <DemoLink
             href={externalUrls.oNas}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
             className="rounded-md px-3 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand"
           >
             O nás
-          </a>
+          </DemoLink>
 
           <div className="relative" ref={infoRef}>
             <button
@@ -216,31 +207,29 @@ export function SiteHeader() {
                       </span>
                     </div>
                   ) : (
-                    <a
+                    <DemoLink
                       key={item.label}
-                      role="menuitem"
                       href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      external
+                      role="menuitem"
                       className="block rounded-md px-3 py-2 text-sm text-charcoal transition-colors hover:bg-brand-soft"
                       onClick={() => setInfoOpen(false)}
                     >
                       {item.label}
-                    </a>
+                    </DemoLink>
                   )
                 )}
               </div>
             ) : null}
           </div>
 
-          <a
+          <DemoLink
             href={externalUrls.onlineVstup}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
             className="rounded-md px-3 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand"
           >
             Online vstup
-          </a>
+          </DemoLink>
 
           <Link
             href="/#kontakt"
@@ -275,14 +264,13 @@ export function SiteHeader() {
             </span>
           </a>
 
-          <a
+          <DemoLink
             href={externalUrls.onlineVstup}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
             className="rounded-md px-2 py-2 text-sm font-medium text-white/85 transition-colors hover:text-brand sm:px-3"
           >
             Online vstup
-          </a>
+          </DemoLink>
 
           <button
             type="button"

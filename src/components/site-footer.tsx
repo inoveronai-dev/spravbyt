@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CopyrightYear } from "@/components/copyright-year";
+import { DemoLink } from "@/components/demo-link";
 import { footerNav, site } from "@/lib/content";
 
 export function SiteFooter() {
@@ -33,23 +34,13 @@ export function SiteFooter() {
             <ul className="flex flex-wrap gap-x-6 gap-y-2.5 text-sm tracking-[0.01em]">
               {footerNav.map((item) => (
                 <li key={item.label}>
-                  {"external" in item && item.external ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/72 transition-colors hover:text-brand"
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="text-white/72 transition-colors hover:text-brand"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
+                  <DemoLink
+                    href={item.href}
+                    external={"external" in item && item.external}
+                    className="text-white/72 transition-colors hover:text-brand"
+                  >
+                    {item.label}
+                  </DemoLink>
                 </li>
               ))}
             </ul>

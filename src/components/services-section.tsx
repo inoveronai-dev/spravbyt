@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
+import { DemoLink } from "@/components/demo-link";
 import { Reveal } from "@/components/reveal";
 import {
   Accordion,
@@ -122,15 +123,14 @@ export function ServicesSection() {
                             <li key={detail}>{detail}</li>
                           ))}
                         </ul>
-                        <a
+                        <DemoLink
                           href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          external
                           className="ml-[calc(2.25rem+1rem)] mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal link-underline sm:ml-[calc(2.75rem+1.25rem)]"
                         >
                           Viac na stránke O nás
                           <ArrowUpRight className="size-4" aria-hidden />
-                        </a>
+                        </DemoLink>
                       </AccordionContent>
                     </AccordionItem>
                   ))}

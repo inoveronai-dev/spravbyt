@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { AnimatedStat } from "@/components/animated-stat";
+import { DemoLink } from "@/components/demo-link";
 import { Reveal } from "@/components/reveal";
 import { about, portfolioFromONas, trust } from "@/lib/content";
 
@@ -158,15 +159,14 @@ export function AboutSection() {
             </Reveal>
 
             <Reveal delay={2}>
-              <a
+              <DemoLink
                 href={about.moreHref}
-                target="_blank"
-                rel="noopener noreferrer"
+                external
                 className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-forest link-underline"
               >
                 Viac o spoločnosti
                 <ArrowUpRight className="size-4" aria-hidden />
-              </a>
+              </DemoLink>
             </Reveal>
           </div>
         </div>

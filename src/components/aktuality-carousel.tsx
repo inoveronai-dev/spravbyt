@@ -9,6 +9,7 @@ import {
 } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
+import { DemoLink } from "@/components/demo-link";
 import {
   Dialog,
   DialogContent,
@@ -158,15 +159,14 @@ export function AktualityCarousel() {
         </div>
 
         <div className="mt-4">
-          <a
+          <DemoLink
             href={externalUrls.aktuality}
-            target="_blank"
-            rel="noopener noreferrer"
+            external
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest link-underline"
           >
             Všetky aktuality
             <ArrowUpRight className="size-3.5" aria-hidden />
-          </a>
+          </DemoLink>
         </div>
       </div>
 
@@ -198,19 +198,18 @@ export function AktualityCarousel() {
                   Tento oznam vyžaduje potvrdenie aktuálnosti u klienta.
                 </p>
               ) : null}
-              <a
+              <DemoLink
                 href={
                   "externalHref" in active && active.externalHref
                     ? active.externalHref
                     : externalUrls.aktuality
                 }
-                target="_blank"
-                rel="noopener noreferrer"
+                external
                 className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal link-underline"
               >
                 Viac na stránke Aktuality
                 <ArrowUpRight className="size-4" aria-hidden />
-              </a>
+              </DemoLink>
             </>
           ) : null}
         </DialogContent>
