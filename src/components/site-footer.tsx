@@ -16,14 +16,14 @@ export function SiteFooter() {
       {/* Decorative shadow wordmark — BYTEX-style, non-interactive */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex select-none justify-center overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex select-none justify-center overflow-hidden pb-1"
       >
-        <p className="translate-y-[32%] whitespace-nowrap font-heading text-[clamp(4.25rem,17vw,11.5rem)] font-semibold uppercase leading-none tracking-[0.1em] text-white/[0.065] sm:translate-y-[36%] sm:tracking-[0.12em]">
+        <p className="translate-y-[6%] whitespace-nowrap font-heading text-[clamp(4.25rem,17vw,11.5rem)] font-semibold uppercase leading-none tracking-[0.1em] text-white/[0.065] sm:translate-y-[8%] sm:tracking-[0.12em]">
           SPRAVBYT
         </p>
       </div>
 
-      <div className="relative z-10 container-page py-10 sm:py-11 lg:py-12">
+      <div className="relative z-10 container-page py-10 pb-16 sm:py-11 sm:pb-[4.5rem] lg:py-12 lg:pb-20">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
           <Link href="/#uvod" aria-label={site.name} className="shrink-0">
             <Image
