@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import { Reveal } from "@/components/reveal";
 import { parallaxCta } from "@/lib/content";
 
 /**
@@ -36,7 +37,7 @@ export function ParallaxCtaSection() {
       </div>
 
       <div className="relative z-10 flex h-full items-center justify-start pl-[8%] pr-6 sm:pl-[12%] sm:pr-8 lg:pl-[14%]">
-        <div className="w-full max-w-[34rem] text-left lg:max-w-[38rem]">
+        <Reveal className="w-full max-w-[34rem] text-left lg:max-w-[38rem]">
           <h2
             id="parallax-cta-heading"
             className="display-heading text-[clamp(1.85rem,3.4vw,3.05rem)] leading-[1.15] tracking-[-0.02em] text-white [text-shadow:0_2px_28px_rgb(0_0_0_/_0.4)]"
@@ -56,7 +57,7 @@ export function ParallaxCtaSection() {
               aria-hidden
             />
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

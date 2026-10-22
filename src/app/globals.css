@@ -189,19 +189,27 @@
 
   .reveal {
     opacity: 0;
-    transform: translateY(1.25rem);
+    transform: translateY(1.5rem);
     transition:
       opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.reveal--soft {
+    transform: none;
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
   }
 
   .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
   }
 
   .reveal-delay-1 {
-    transition-delay: 80ms;
+    transition-delay: 90ms;
   }
   .reveal-delay-2 {
     transition-delay: 160ms;
@@ -211,6 +219,128 @@
   }
   .reveal-delay-4 {
     transition-delay: 320ms;
+  }
+
+  /* Stagger children once the parent Reveal becomes visible. */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.is-visible .reveal-stagger > *:nth-child(1) {
+    transition-delay: 0ms;
+  }
+  .reveal.is-visible .reveal-stagger > *:nth-child(2) {
+    transition-delay: 100ms;
+  }
+  .reveal.is-visible .reveal-stagger > *:nth-child(3) {
+    transition-delay: 200ms;
+  }
+  .reveal.is-visible .reveal-stagger > *:nth-child(4) {
+    transition-delay: 300ms;
+  }
+  .reveal.is-visible .reveal-stagger > *:nth-child(5) {
+    transition-delay: 400ms;
+  }
+  .reveal.is-visible .reveal-stagger > *:nth-child(n + 6) {
+    transition-delay: 480ms;
+  }
+
+  .reveal.is-visible .reveal-stagger > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* —— Splash screen —— */
+  html.splash-pending {
+    overflow: hidden;
+  }
+
+  /* Instant forest veil before React mounts — prevents homepage flash. */
+  html.splash-pending::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: var(--forest-deep);
+    pointer-events: none;
+  }
+
+  /* React splash took over — drop the boot veil so the curtain can reveal. */
+  html.splash-pending:has(.splash-screen)::before {
+    display: none;
+  }
+
+  html.splash-pending .hero-photo-zoom,
+  html.splash-pending .hero-enter-heading,
+  html.splash-pending .hero-enter-body,
+  html.splash-pending .hero-enter-cta,
+  html.splash-pending .hero-enter-label {
+    animation: none !important;
+  }
+
+  .splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: var(--forest-deep);
+    clip-path: inset(0);
+    transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .splash-screen.is-exiting {
+    clip-path: inset(0 0 100% 0);
+    pointer-events: none;
+  }
+
+  .splash-screen__stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.35rem;
+  }
+
+  .splash-screen__logo {
+    opacity: 0;
+    transform: scale(0.92);
+    animation: splash-logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+  }
+
+  .splash-screen__line {
+    display: block;
+    height: 1.5px;
+    width: 5.25rem;
+    background: var(--brand);
+    transform: scaleX(0);
+    transform-origin: center;
+    animation: splash-line-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both;
+  }
+
+  @keyframes splash-logo-in {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes splash-line-in {
+    from {
+      transform: scaleX(0);
+      opacity: 0.4;
+    }
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
   }
 
   .aktuality-track {
@@ -273,18 +403,28 @@
       scroll-behavior: auto;
     }
 
+    html.splash-pending::before,
+    .splash-screen {
+      display: none !important;
+    }
+
     .reveal,
-    .reveal.is-visible {
+    .reveal.is-visible,
+    .reveal-stagger > *,
+    .reveal.is-visible .reveal-stagger > * {
       opacity: 1;
       transform: none;
       transition: none;
+      will-change: auto;
     }
 
     .hero-photo-zoom,
     .hero-enter-label,
     .hero-enter-heading,
     .hero-enter-body,
-    .hero-enter-cta {
+    .hero-enter-cta,
+    .splash-screen__logo,
+    .splash-screen__line {
       animation: none;
     }
 

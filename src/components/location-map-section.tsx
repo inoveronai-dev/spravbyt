@@ -25,7 +25,7 @@ export function LocationMapSection() {
           </div>
         </Reveal>
 
-        <Reveal delay={1}>
+        <Reveal delay={1} variant="soft">
           <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-mist">
             <iframe
               title="Mapa — SPRAVBYT s.r.o., Dlhá ulica 2039/2, Banská Bystrica"

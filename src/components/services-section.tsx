@@ -87,7 +87,7 @@ export function ServicesSection() {
                 onMouseLeave={() => setPreviewValue(null)}
               >
                 <Accordion
-                  className="mt-9 border-t border-charcoal/10"
+                  className="reveal-stagger mt-9 border-t border-charcoal/10"
                   value={openValues}
                   onValueChange={(next) => {
                     setOpenValues(next);
@@ -139,7 +139,7 @@ export function ServicesSection() {
             </Reveal>
           </div>
 
-          <Reveal delay={2}>
+          <Reveal delay={2} variant="soft">
             <figure
               className="relative w-full overflow-hidden rounded-2xl bg-mist"
               aria-live="polite"

@@ -7,7 +7,9 @@ type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: 1 | 2 | 3 | 4;
-  as?: "div" | "li" | "article" | "section";
+  as?: "div" | "li" | "article" | "section" | "footer";
+  /** Soft opacity-only reveal for photographs / media. */
+  variant?: "default" | "soft";
 };
 
 export function Reveal({
@@ -15,6 +17,7 @@ export function Reveal({
   className,
   delay,
   as: Tag = "div",
+  variant = "default",
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
 
@@ -34,7 +37,7 @@ export function Reveal({
           observer.unobserve(node);
         }
       },
-      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.14, rootMargin: "0px 0px -6% 0px" }
     );
 
     observer.observe(node);
@@ -46,7 +49,7 @@ export function Reveal({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={ref as any}
       className={cn(
-        "reveal",
+        variant === "soft" ? "reveal reveal--soft" : "reveal",
         delay === 1 && "reveal-delay-1",
         delay === 2 && "reveal-delay-2",
         delay === 3 && "reveal-delay-3",

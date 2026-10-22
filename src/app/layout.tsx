@@ -1,11 +1,27 @@
 import type { Metadata } from "next";
 import { Inter, Manrope, Newsreader } from "next/font/google";
+import Script from "next/script";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SplashScreen } from "@/components/splash-screen";
 import { site } from "@/lib/content";
 
 import "./globals.css";
+
+const splashBootScript = `
+try {
+  if (
+    sessionStorage.getItem("spravbyt-splash-seen") !== "1" &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    document.documentElement.classList.add("splash-pending");
+    window.setTimeout(function () {
+      document.documentElement.classList.remove("splash-pending");
+    }, 3000);
+  }
+} catch (e) {}
+`;
 
 const manrope = Manrope({
   variable: "--font-heading",
@@ -59,6 +75,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">
+        <Script id="splash-boot" strategy="beforeInteractive">
+          {splashBootScript}
+        </Script>
+        <SplashScreen />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

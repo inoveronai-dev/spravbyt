@@ -3,11 +3,16 @@ import Link from "next/link";
 
 import { CopyrightYear } from "@/components/copyright-year";
 import { DemoLink } from "@/components/demo-link";
+import { Reveal } from "@/components/reveal";
 import { footerNav, site } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-white/10 bg-forest-deep text-white">
+    <Reveal
+      as="footer"
+      variant="soft"
+      className="relative isolate overflow-hidden border-t border-white/10 bg-forest-deep text-white"
+    >
       {/* Decorative shadow wordmark — BYTEX-style, non-interactive */}
       <div
         aria-hidden="true"
@@ -53,6 +58,6 @@ export function SiteFooter() {
           </p>
         </div>
       </div>
-    </footer>
+    </Reveal>
   );
 }
